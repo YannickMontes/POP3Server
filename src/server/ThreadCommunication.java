@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import states.Autorisation;
 
 /**
  *
@@ -16,12 +17,13 @@ import java.util.logging.Logger;
 public class ThreadCommunication extends Thread{
     // Création d'un socket pour la réponse
     Socket replySocket = null;
-
+    states.State state;
     /**
      * Constructeur du thread
      */
     public ThreadCommunication(Socket s) {
-        replySocket = s;    
+        replySocket = s;  
+        state = new Autorisation();
     }
 
     /**
@@ -44,6 +46,27 @@ public class ThreadCommunication extends Thread{
                 BufferedReader br = new BufferedReader(r); // Création d'un buffer à partir du la requête
                 request = br.readLine(); // Lit la première ligne de la requête
                 System.out.println(request);
+                
+                switch(request)
+                {
+                    case "APOP":
+                        state.LauchAPOP();
+                        break;
+                    case "STAT":
+                        state.LauchSTAT();
+                        break;
+                    case "RETR":
+                        state.LauchRETR();
+                        break;
+                    case "QUIT":
+                        state.LauchQUIT();
+                        break;
+                    case "LIST":
+                        state.LauchLIST();
+                        break;
+                }
+                
+                
             } catch (IOException ex) {
                 Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);
             }

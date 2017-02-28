@@ -9,7 +9,10 @@ package states;
  *
  * @author yannick
  */
-public class StateEnum
+public enum StateEnum
 {
-    
+    AUTORISATION, 
+    TRANSACTION,
+    UPDATE,
+    CLOSED
 }
