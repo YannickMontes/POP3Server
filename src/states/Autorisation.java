@@ -6,7 +6,9 @@
 package states;
 
 import events.APOPEvent;
+import java.util.ArrayList;
 import json_parser.ParserJSON;
+import utils.Utils;
 
 /**
  *
@@ -27,6 +29,15 @@ public class Autorisation extends State
         //Traitement APOP
         System.out.println("User: "+apop.getUser() + " Pass: "+ apop.getPass());
         
-        ParserJSON.getUsers();
+        ArrayList<String> users = ParserJSON.getUsers();
+        
+        if(Utils.UserInList(users, apop.getUser()))
+        {
+            System.out.println("User found.");
+        }
+        else
+        {
+            System.out.println("User not found");
+        }
     }
 }

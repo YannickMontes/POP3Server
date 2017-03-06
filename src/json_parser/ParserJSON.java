@@ -7,6 +7,7 @@ package json_parser;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -22,9 +23,9 @@ import org.json.simple.parser.ParseException;
  */
 public abstract class ParserJSON 
 {
-    public static HashMap<String, String> getUsers()
+    public static ArrayList<String> getUsers()
     {
-        HashMap toRet = new HashMap<String, String>();
+        ArrayList toRet = new ArrayList<String>();
         try
         {
             JSONParser parser = new JSONParser();
@@ -36,7 +37,7 @@ public abstract class ParserJSON
             while(iterator.hasNext())
             {
                 JSONObject user = iterator.next();
-                toRet.put(user.get("user"), user.get("pass"));
+                toRet.add(user.get("user"));
             }
             
             return toRet;
