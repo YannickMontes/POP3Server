@@ -1,0 +1,18 @@
+{
+	"mails": [
+		{
+			"from": {
+                "name": "Jean-Michel",
+                "adress": "jeanmichel@gmail.com"
+            },
+			"to": {
+                "name": "Yannick",
+                "adress": "yannick@127.0.0.1:1024"
+            },
+            "subject": "Demande de conversation",
+            "date": "Fri, 21 Feb 2017 09:55:06 -600",
+            "message-id": "TODO",
+            "body": "Bonjour Yannick, je souhaiterai converser avec vous!"
+		}
+	]
+}
