@@ -1,0 +1,12 @@
+{
+	"users": [
+		{
+			"user":"Yannick",
+			"pass":"test"
+		},
+		{
+			"user":"Yoann",
+			"pass":"stress"
+		}
+	]
+}

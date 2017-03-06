@@ -5,6 +5,9 @@
  */
 package states;
 
+import events.APOPEvent;
+import json_parser.ParserJSON;
+
 /**
  *
  * @author yannick
@@ -18,39 +21,12 @@ public class Autorisation extends State
     }
 
     @Override
-    public void LauchAPOP()
+    public void LauchAPOP(APOPEvent apop)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Vérifications des informations");
+        //Traitement APOP
+        System.out.println("User: "+apop.getUser() + " Pass: "+ apop.getPass());
+        
+        ParserJSON.getUsers();
     }
-
-    @Override
-    public void LauchSTAT()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void LauchLIST()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void LauchDELE()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void LauchQUIT()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void LauchRETR()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

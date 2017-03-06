@@ -33,6 +33,7 @@ public class ThreadCommunication extends Thread{
     public void run() 
     {
         String request;
+        Manager manager = new Manager();
         try {
             replySocket.setKeepAlive(true);
         } catch (SocketException ex) {
@@ -47,9 +48,12 @@ public class ThreadCommunication extends Thread{
                 request = br.readLine(); // Lit la première ligne de la requête
                 System.out.println(request);
                 
-                switch(request)
+                manager.HandleCommand(request, state);
+                
+                
+                /*switch(evt)
                 {
-                    case "APOP":
+                    case APOPEvent:
                         state.LauchAPOP();
                         break;
                     case "STAT":
@@ -64,7 +68,7 @@ public class ThreadCommunication extends Thread{
                     case "LIST":
                         state.LauchLIST();
                         break;
-                }
+                }*/
                 
                 
             } catch (IOException ex) {

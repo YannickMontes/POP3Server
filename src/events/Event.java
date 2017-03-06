@@ -5,11 +5,14 @@
  */
 package events;
 
+import java.util.List;
+
 /**
  *
  * @author yannick
  */
-public class Event
+public abstract class Event
 {
-    
+    public String command;
+    public List<String> args;    
 }

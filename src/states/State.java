@@ -6,6 +6,7 @@
 package states;
 
 import events.EventEnum;
+import events.APOPEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +25,12 @@ public abstract class State
         this.currentState = state;
     }
     
-    public abstract void LauchAPOP();
-    public abstract void LauchSTAT();
-    public abstract void LauchLIST();
-    public abstract void LauchDELE();
-    public abstract void LauchQUIT();
-    public abstract void LauchRETR();
+    public abstract void LauchAPOP(APOPEvent apop);
+    //public abstract void LauchSTAT(STATEvent stat);
+    //public abstract void LauchLIST(LISTEvent list);
+    //public abstract void LauchDELE(DELEEvent dele);
+    //public abstract void LauchQUIT(QUITEvent quit);
+    //public abstract void LauchRETR(RETRvent retr);
+    
+    
 }

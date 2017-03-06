@@ -5,6 +5,8 @@
  */
 package states;
 
+import events.APOPEvent;
+
 /**
  *
  * @author yannick
@@ -15,39 +17,9 @@ public class Closed extends State
     {
         super(StateEnum.CLOSED);
     }
-    
-    @Override
-    public void LauchAPOP()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
-    public void LauchSTAT()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void LauchLIST()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void LauchDELE()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void LauchQUIT()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void LauchRETR()
+    public void LauchAPOP(APOPEvent apop)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
