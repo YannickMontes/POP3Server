@@ -6,6 +6,7 @@
 package states;
 
 import events.APOPEvent;
+import events.DELEEvent;
 
 /**
  *
@@ -21,6 +22,11 @@ public class Closed extends State
     @Override
     public String LauchAPOP(APOPEvent apop)
     {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String LauchDELE(DELEEvent dele) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

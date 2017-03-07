@@ -6,7 +6,11 @@
 package states;
 
 import events.APOPEvent;
+import events.DELEEvent;
 import events.Event;
+import java.util.ArrayList;
+import json_parser.ParserJSON;
+import utils.Utils;
 
 /**
  *
@@ -23,6 +27,27 @@ public class Transaction extends State
     public String LauchAPOP(APOPEvent apop)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String LauchDELE(DELEEvent dele) {
+        String message;
+        System.out.println("Vérifications des informations");
+        System.out.println("User: "+apop.getUser() + " Pass: "+ apop.getPass());
+        
+        ArrayList<String> users = ParserJSON.getUsers();
+        
+        if(Utils.UserInList(users, apop.getUser()))
+        {
+            System.out.println("User found.");
+            message = "+OK Welcome "+apop.getUser();
+        }
+        else
+        {
+            System.out.println("User not found");
+            message = "-ERR User not found";
+        }
+        return message;
     }
 
 }

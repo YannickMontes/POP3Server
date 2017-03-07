@@ -6,6 +6,7 @@
 package states;
 
 import events.APOPEvent;
+import events.DELEEvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
 import utils.Utils;
@@ -42,5 +43,10 @@ public class Autorisation extends State
             message = "-ERR User not found";
         }
         return message;
+    }
+
+    @Override
+    public String LauchDELE(DELEEvent dele) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
