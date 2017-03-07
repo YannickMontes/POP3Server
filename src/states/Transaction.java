@@ -56,7 +56,11 @@ public class Transaction extends State
     @Override
     public StateAnswer LauchSTAT(STATEvent stat)
     {
-        String message = "";
+        String message;
+        
+        ArrayList<Mail> mails = ParserJSON.getMails(ThreadCommunication.currentUser.get());
+        
+        message = "+OK "+mails.size()+" "+Utils.GetTotalNbBytesMails(mails)+"\n";
         
         return new StateAnswer(null, message);
     }

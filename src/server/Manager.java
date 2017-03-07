@@ -9,6 +9,7 @@ import events.APOPEvent;
 import events.DELEEvent;
 import states.State;
 import events.EventEnum;
+import events.STATEvent;
 import states.StateAnswer;
 import utils.Utils;
 
@@ -69,7 +70,7 @@ public class Manager
                 }
                 else
                 {
-                    //response = currentState.LauchSTAT(new STATEvent());
+                    response = currentState.LauchSTAT(new STATEvent());
                 }
                 
                 break;

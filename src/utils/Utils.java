@@ -6,6 +6,7 @@
 package utils;
 
 import java.util.ArrayList;
+import model.Mail;
 
 /**
  *
@@ -29,5 +30,17 @@ public abstract class Utils
     public static String CreateStringCommandNotHandleInThisState(String eventName, String stateName)
     {
         return "-ERR "+eventName+" is not handled in "+stateName+" state\n";
+    }
+    
+    public static int GetTotalNbBytesMails(ArrayList<Mail> mails)
+    {
+        int nbBytes = 0;
+        
+        for(Mail mail : mails)
+        {
+            nbBytes += mail.getBody().getBytes().length;
+        }
+        
+        return nbBytes;
     }
 }
