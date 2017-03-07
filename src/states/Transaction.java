@@ -34,9 +34,10 @@ public class Transaction extends State
     @Override
     public StateAnswer LauchDELE(DELEEvent dele) {
         String message = null;
+
         System.out.println("Tentative de suppression du message id: " + dele.getMsgID());
         
-        ArrayList<Mail> mails = ParserJSON.getMails();
+        ArrayList<Mail> mails = ParserJSON.getMails("yannick");
         
         /*if(Utils.UserInList(users, apop.getUser()))
         {

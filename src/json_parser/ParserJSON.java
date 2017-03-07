@@ -17,6 +17,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import utils.MailTagEnum;
 
 /**
  *
@@ -52,20 +53,40 @@ public abstract class ParserJSON
         return null;
     }
 
-    public static ArrayList<Mail> getMails() {
-        ArrayList toRet = new ArrayList<String>();
+    public static ArrayList<Mail> getMails(String user) {
+        ArrayList toRet = new ArrayList<Mail>();
         try
         {
             JSONParser parser = new JSONParser();
             
-            JSONObject parsedFile = (JSONObject)parser.parse(new FileReader("infos.json"));
+            JSONObject parsedFile = (JSONObject)parser.parse(new FileReader("mails.json"));
             
-            JSONArray users = (JSONArray)parsedFile.get("users");
+            JSONArray users = (JSONArray)parsedFile.get("mails");
             Iterator<JSONObject> iterator = users.iterator();
             while(iterator.hasNext())
             {
-                JSONObject user = iterator.next();
-                toRet.add(user.get("user"));
+                JSONObject mailJSON = iterator.next();
+                System.out.println(mailJSON);
+                
+                JSONObject expJSON = (JSONObject) mailJSON.get("from");
+                JSONObject recJSON = (JSONObject) mailJSON.get("to");
+                
+                String exp  = (String) expJSON.get("adress");
+                String expName = (String) expJSON.get("name");
+                String recName = (String) recJSON.get("adress");
+                String rec = (String) recJSON.get("adress");
+                String sub = (String) mailJSON.get("subject");
+                String dat = (String) mailJSON.get("date");
+                String msgID = (String) mailJSON.get("message-id");
+                String tagString = (String) mailJSON.get("balise");
+                MailTagEnum tag = MailTagEnum.valueOf(tagString);
+                String body = (String) mailJSON.get("body");
+                
+                Mail m = new Mail(expName, exp, recName, rec, sub, dat, msgID, tag, body);
+                toRet.add(m);
+                System.out.println("test");
+                //if mail.get(user)
+                //toRet.add(mail.get("user"));
             }
             
             return toRet;
