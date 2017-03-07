@@ -21,15 +21,15 @@ public abstract class Utils
 
     public static String GenerateHelpMessage()
     {
-        return "-ERR Commande non reconnue\nVoici la liste des commandes disponibles:\n"
-        + "APOP <user> <pass> - Permet de se connecter\n"
-        + "STAT - Informations sur la boite\n"
-        + "...\n";
+        return "-ERR Commande non reconnue\r\nVoici la liste des commandes disponibles:\r\n"
+        + "APOP <user> <pass> - Permet de se connecter\r\n"
+        + "STAT - Informations sur la boite\r\n"
+        + "...\r\n";
     }
     
     public static String CreateStringCommandNotHandleInThisState(String eventName, String stateName)
     {
-        return "-ERR "+eventName+" is not handled in "+stateName+" state\n";
+        return "-ERR "+eventName+" is not handled in "+stateName+" state\r\n";
     }
     
     public static int GetTotalNbBytesMails(ArrayList<Mail> mails)

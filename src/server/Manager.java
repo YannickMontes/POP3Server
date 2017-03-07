@@ -9,6 +9,7 @@ import events.APOPEvent;
 import events.DELEEvent;
 import states.State;
 import events.EventEnum;
+import events.RETREvent;
 import events.STATEvent;
 import states.StateAnswer;
 import utils.Utils;
@@ -91,6 +92,19 @@ public class Manager
                     //returnedMessage = currentState.LauchLIST(new LISTEvent());
                 }
                 
+                break;
+                
+            case RETR:
+                System.out.println("[DEBUG]RETR recu");
+                
+                if(message_split.length != 2)
+                {
+                    returnedMessage = "-ERR RETR command take one argument\n";
+                }
+                else
+                {
+                    response = currentState.LauchRETR(new RETREvent(Integer.parseInt(message_split[1])));
+                }
                 break;
                 
             case DELE:

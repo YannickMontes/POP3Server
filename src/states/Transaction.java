@@ -8,6 +8,7 @@ package states;
 import events.APOPEvent;
 import events.DELEEvent;
 import events.Event;
+import events.RETREvent;
 import events.STATEvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
@@ -60,7 +61,28 @@ public class Transaction extends State
         
         ArrayList<Mail> mails = ParserJSON.getMails(ThreadCommunication.currentUser.get());
         
-        message = "+OK "+mails.size()+" "+Utils.GetTotalNbBytesMails(mails)+"\n";
+        message = "+OK "+mails.size()+" "+Utils.GetTotalNbBytesMails(mails)+"\r\n";
+        
+        return new StateAnswer(null, message);
+    }
+
+    @Override
+    public StateAnswer LauchRETR(RETREvent retr)
+    {
+        String message;
+        
+        ArrayList<Mail> mails = ParserJSON.getMails(ThreadCommunication.currentUser.get());
+        
+        try
+        {
+            message = "+OK "+Utils.GetNbBytesMail(mails.get(retr.getMessageID()-1))+" octets\r\n";
+            message += mails.get(retr.getMessageID()-1).getBody()+"\r\n";
+            message += ".\r\n";
+        }
+        catch(Exception e)
+        {
+            message = "-ERR numero de message invalide\r\n";
+        }
         
         return new StateAnswer(null, message);
     }

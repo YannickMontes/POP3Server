@@ -7,6 +7,7 @@ package states;
 
 import events.APOPEvent;
 import events.DELEEvent;
+import events.RETREvent;
 import events.STATEvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
@@ -63,5 +64,11 @@ public class Autorisation extends State
     public StateAnswer LauchSTAT(STATEvent stat)
     {
         return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(stat.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LauchRETR(RETREvent retr)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(retr.getEventName(), this.getStateName()));
     }
 }

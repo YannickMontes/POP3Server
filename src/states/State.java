@@ -8,6 +8,7 @@ package states;
 import events.EventEnum;
 import events.APOPEvent;
 import events.DELEEvent;
+import events.RETREvent;
 import events.STATEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,5 @@ public abstract class State
     //public abstract StateAnswer LauchLIST(LISTEvent list);
     public abstract StateAnswer LauchDELE(DELEEvent dele);
     //public abstract StateAnswer LauchQUIT(QUITEvent quit);
-    //public abstract StateAnswer LauchRETR(RETRvent retr);
-    
-    
+    public abstract StateAnswer LauchRETR(RETREvent retr);
 }
