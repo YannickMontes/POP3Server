@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Mail;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,6 +26,33 @@ public abstract class ParserJSON
 {
     public static ArrayList<String> getUsers()
     {
+        ArrayList toRet = new ArrayList<String>();
+        try
+        {
+            JSONParser parser = new JSONParser();
+            
+            JSONObject parsedFile = (JSONObject)parser.parse(new FileReader("infos.json"));
+            
+            JSONArray users = (JSONArray)parsedFile.get("users");
+            Iterator<JSONObject> iterator = users.iterator();
+            while(iterator.hasNext())
+            {
+                JSONObject user = iterator.next();
+                toRet.add(user.get("user"));
+            }
+            
+            return toRet;
+        } catch (IOException ex)
+        {
+            Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex)
+        {
+            Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static ArrayList<Mail> getMails() {
         ArrayList toRet = new ArrayList<String>();
         try
         {
