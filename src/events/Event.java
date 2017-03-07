@@ -13,6 +13,16 @@ import java.util.List;
  */
 public abstract class Event
 {
-    public String command;
-    public List<String> args;    
+    public EventEnum event;
+    public List<String> args;   
+    
+    public Event(EventEnum eventName)
+    {
+        this.event = eventName;
+    }
+    
+    public String getEventName()
+    {
+        return this.event.toString();
+    }
 }

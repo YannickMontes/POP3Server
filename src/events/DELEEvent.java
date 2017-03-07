@@ -15,7 +15,7 @@ public class DELEEvent extends Event
     
     public DELEEvent(Integer msgID)
     {
-        super();
+        super(EventEnum.DELE);
         this.msgID = msgID;
     }
     

@@ -16,7 +16,7 @@ public class APOPEvent extends Event
     
     public APOPEvent(String user, String pass)
     {
-        super();
+        super(EventEnum.APOP);
         this.user = user;
         this.pass = pass;
     }
