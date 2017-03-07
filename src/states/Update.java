@@ -7,6 +7,7 @@ package states;
 
 import events.APOPEvent;
 import events.DELEEvent;
+import events.STATEvent;
 import utils.Utils;
 
 /**
@@ -21,14 +22,20 @@ public class Update extends State
     }
 
     @Override
-    public String LauchAPOP(APOPEvent apop)
+    public StateAnswer LauchAPOP(APOPEvent apop)
     {
-        return Utils.CreateStringCommandNotHandleInThisState(apop.getEventName(), this.getStateName());
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(apop.getEventName(), this.getStateName()));
     }
 
     @Override
-    public String LauchDELE(DELEEvent dele) {
-        return Utils.CreateStringCommandNotHandleInThisState(dele.getEventName(), this.getStateName());
+    public StateAnswer LauchDELE(DELEEvent dele) {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(dele.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LauchSTAT(STATEvent stat)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(stat.getEventName(), this.getStateName()));
     }
     
 }

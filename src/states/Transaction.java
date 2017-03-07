@@ -8,6 +8,7 @@ package states;
 import events.APOPEvent;
 import events.DELEEvent;
 import events.Event;
+import events.STATEvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
 import model.Mail;
@@ -25,13 +26,13 @@ public class Transaction extends State
     }
 
     @Override
-    public String LauchAPOP(APOPEvent apop)
+    public StateAnswer LauchAPOP(APOPEvent apop)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(apop.getEventName(), this.getStateName()));
     }
 
     @Override
-    public String LauchDELE(DELEEvent dele) {
+    public StateAnswer LauchDELE(DELEEvent dele) {
         String message = null;
         System.out.println("Tentative de suppression du message id: " + dele.getMsgID());
         
@@ -47,7 +48,15 @@ public class Transaction extends State
             System.out.println("User not found");
             message = "-ERR User not found";
         }*/
-        return message;
+        return new StateAnswer(null, message);
+    }
+
+    @Override
+    public StateAnswer LauchSTAT(STATEvent stat)
+    {
+        String message = "";
+        
+        return new StateAnswer(null, message);
     }
 
 }

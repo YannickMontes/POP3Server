@@ -8,6 +8,7 @@ package states;
 import events.EventEnum;
 import events.APOPEvent;
 import events.DELEEvent;
+import events.STATEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +32,12 @@ public abstract class State
         return this.currentState.toString();
     }
     
-    public abstract String LauchAPOP(APOPEvent apop);
-    //public abstract void LauchSTAT(STATEvent stat);
-    //public abstract void LauchLIST(LISTEvent list);
-    public abstract String LauchDELE(DELEEvent dele);
-    //public abstract void LauchQUIT(QUITEvent quit);
-    //public abstract void LauchRETR(RETRvent retr);
+    public abstract StateAnswer LauchAPOP(APOPEvent apop);
+    public abstract StateAnswer LauchSTAT(STATEvent stat);
+    //public abstract StateAnswer LauchLIST(LISTEvent list);
+    public abstract StateAnswer LauchDELE(DELEEvent dele);
+    //public abstract StateAnswer LauchQUIT(QUITEvent quit);
+    //public abstract StateAnswer LauchRETR(RETRvent retr);
     
     
 }

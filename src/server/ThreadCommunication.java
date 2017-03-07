@@ -9,6 +9,7 @@ import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import states.Autorisation;
+import states.StateAnswer;
 
 /**
  *
@@ -17,13 +18,13 @@ import states.Autorisation;
 public class ThreadCommunication extends Thread{
     // Création d'un socket pour la réponse
     Socket replySocket = null;
-    states.State state;
+    states.State currentState;
     /**
      * Constructeur du thread
      */
     public ThreadCommunication(Socket s) {
         replySocket = s;  
-        state = new Autorisation();
+        currentState = new Autorisation();
     }
 
     /**
@@ -49,8 +50,11 @@ public class ThreadCommunication extends Thread{
                 request = br.readLine(); // Lit la première ligne de la requête
                 System.out.println(request);
                 
-                String server_response = manager.HandleCommand(request, state);
+                StateAnswer server_response = manager.HandleCommand(request, currentState);
+                if(server_response.getNextState() != null)
+                    this.currentState = server_response.getNextState();
                 
+                System.out.println("[DEBUG] Current state: "+currentState.getStateName());
                 
                 /*switch(evt)
                 {
@@ -71,7 +75,7 @@ public class ThreadCommunication extends Thread{
                         break;
                 }*/
                 
-                this.SendMessage(server_response);
+                this.SendMessage(server_response.getAnswer());
                 
             } catch (IOException ex) {
                 Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);

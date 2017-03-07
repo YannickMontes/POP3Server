@@ -7,6 +7,7 @@ package states;
 
 import events.APOPEvent;
 import events.DELEEvent;
+import events.STATEvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
 import utils.Utils;
@@ -24,9 +25,10 @@ public class Autorisation extends State
     }
 
     @Override
-    public String LauchAPOP(APOPEvent apop)
+    public StateAnswer LauchAPOP(APOPEvent apop)
     {
         String message;
+        State nextState = null;
         System.out.println("Vérifications des informations");
         System.out.println("User: "+apop.getUser() + " Pass: "+ apop.getPass());
         
@@ -36,18 +38,26 @@ public class Autorisation extends State
         {
             System.out.println("User found.");
             message = "+OK Welcome "+apop.getUser();
+            nextState = new Transaction();
         }
         else
         {
             System.out.println("User not found");
             message = "-ERR User not found";
+            nextState = null;
         }
-        return message;
+        return new StateAnswer(nextState, message);
     }
 
     @Override
-    public String LauchDELE(DELEEvent dele) 
+    public StateAnswer LauchDELE(DELEEvent dele) 
     {
-        return Utils.CreateStringCommandNotHandleInThisState(dele.getEventName(), this.getStateName());
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(dele.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LauchSTAT(STATEvent stat)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(stat.getEventName(), this.getStateName()));
     }
 }

@@ -8,6 +8,7 @@ package server;
 import events.APOPEvent;
 import states.State;
 import events.EventEnum;
+import states.StateAnswer;
 import utils.Utils;
 
 /**
@@ -18,7 +19,7 @@ public class Manager
 {
     
     
-    public String HandleCommand(String receivedMessage, State currentState)
+    public StateAnswer HandleCommand(String receivedMessage, State currentState)
     {
         //Split the received message by space, to know what is the command
         //and what are the args
@@ -32,10 +33,11 @@ public class Manager
         catch(IllegalArgumentException e)
         {
             //Envoyer ERR
-            return "-ERR Somthing wrong happened\n";
+            return new StateAnswer(null, "-ERR Somthing wrong happened\n");
         }
         
-        String returnedMessage="";
+        StateAnswer response = null;
+        String returnedMessage = "";
                 
         switch(command)
         {
@@ -52,7 +54,7 @@ public class Manager
                 {
                     String user = message_split[1];
                     String pass = message_split[2];          
-                    returnedMessage = currentState.LauchAPOP(new APOPEvent(user, pass));
+                    response = currentState.LauchAPOP(new APOPEvent(user, pass));
                 }
                 
                 break;
@@ -66,7 +68,7 @@ public class Manager
                 }
                 else
                 {
-                    //returnedMessage = currentState.LauchSTAT(new STATEvent());
+                    //response = currentState.LauchSTAT(new STATEvent());
                 }
                 
                 break;
@@ -120,6 +122,11 @@ public class Manager
                 break;
         }
         
-        return returnedMessage;
+        if(response == null)
+        {
+            return new StateAnswer(null, returnedMessage);
+        }
+        
+        return response;
     }
 }
