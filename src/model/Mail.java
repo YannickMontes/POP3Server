@@ -69,4 +69,8 @@ public class Mail {
     public String getBody() {
         return body;
     }
+    
+    public void deleteMessage() {
+        this.tag = MailTagEnum.DELETED;
+    }
 }

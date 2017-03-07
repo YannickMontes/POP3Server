@@ -45,7 +45,7 @@ public class Manager
         switch(command)
         {
             case APOP:
-                System.out.println("[DEBUG]APOP recu");
+                System.out.println("[DEBUG]APOP recu par " + ThreadCommunication.currentUser.get());
                 
                 if(message_split.length != 3)
                 {
@@ -63,7 +63,7 @@ public class Manager
                 break;
                 
             case STAT:
-                System.out.println("[DEBUG]STAT recu");
+                System.out.println("[DEBUG]STAT recu par " + ThreadCommunication.currentUser.get());
                 
                 if(message_split.length != 1)
                 {
@@ -77,7 +77,7 @@ public class Manager
                 break;
                 
             case LIST:
-                System.out.println("[DEBUG]LIST recu");
+                System.out.println("[DEBUG]LIST recu par " + ThreadCommunication.currentUser.get());
                 
                 if(message_split.length > 2)
                 {
@@ -108,7 +108,7 @@ public class Manager
                 break;
                 
             case DELE:
-                System.out.println("[DEBUG]DELE recu");
+                System.out.println("[DEBUG]DELE recu par " + ThreadCommunication.currentUser.get());
                 
                 if(message_split.length != 2)
                 {
@@ -121,7 +121,7 @@ public class Manager
                 break;
                 
             case QUIT:
-                System.out.println("[DEBUG]QUIT recu");
+                System.out.println("[DEBUG]QUIT recu par " + ThreadCommunication.currentUser.get());
                 if(message_split.length != 1)
                 {
                     returnedMessage = "-ERR QUIT Command only take no arguments\r\n";

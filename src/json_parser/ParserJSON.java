@@ -72,7 +72,7 @@ public abstract class ParserJSON
                 
                 String exp  = (String) expJSON.get("adress");
                 String expName = (String) expJSON.get("name");
-                String recName = (String) recJSON.get("adress");
+                String recName = (String) recJSON.get("name");
                 String rec = (String) recJSON.get("adress");
                 String sub = (String) mailJSON.get("subject");
                 String dat = (String) mailJSON.get("date");
@@ -81,11 +81,10 @@ public abstract class ParserJSON
                 MailTagEnum tag = MailTagEnum.valueOf(tagString);
                 String body = (String) mailJSON.get("body");
                 
-                Mail m = new Mail(expName, exp, recName, rec, sub, dat, msgID, tag, body);
-                toRet.add(m);
-                System.out.println("test");
-                //if mail.get(user)
-                //toRet.add(mail.get("user"));
+                if (user.equals(recName)) {
+                    Mail m = new Mail(expName, exp, recName, rec, sub, dat, msgID, tag, body);
+                    toRet.add(m);
+                }
             }
             
             return toRet;

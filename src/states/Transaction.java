@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import json_parser.ParserJSON;
 import model.Mail;
 import server.ThreadCommunication;
+import utils.MailTagEnum;
 import utils.Utils;
 
 /**
@@ -35,22 +36,26 @@ public class Transaction extends State
 
     @Override
     public StateAnswer LauchDELE(DELEEvent dele) {
-        String message = "Bene Bene " + ThreadCommunication.currentUser.get();
+        String message;
 
         System.out.println("Tentative de suppression du message id: " + dele.getMsgID());
+        System.out.println(ThreadCommunication.currentUser.get());
         
-        ArrayList<Mail> mails = ParserJSON.getMails("yannick");
-        
-        /*if(Utils.UserInList(users, apop.getUser()))
-        {
-            System.out.println("User found.");
-            message = "+OK Welcome "+apop.getUser();
+        ArrayList<Mail> mails = ParserJSON.getMails(ThreadCommunication.currentUser.get());
+
+        try {
+            if (mails.get(dele.getMsgID() - 1).getTag() == MailTagEnum.DELETED) {
+                message = "-ERR message " + (dele.getMsgID() - 1) + " already deleted";
+            }
+            else {
+                mails.get(dele.getMsgID() - 1).deleteMessage();
+                message = "+OK message " + (dele.getMsgID() - 1) + " deleted";
+            }
+            
+        } catch (Exception e) {
+            message = "-ERR numéro de message invalide";
         }
-        else
-        {
-            System.out.println("User not found");
-            message = "-ERR User not found";
-        }*/
+        
         return new StateAnswer(null, message);
     }
 
