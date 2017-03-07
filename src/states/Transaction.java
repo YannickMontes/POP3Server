@@ -33,7 +33,7 @@ public class Transaction extends State
 
     @Override
     public StateAnswer LauchDELE(DELEEvent dele) {
-        String message = null;
+        String message = "Bene Bene";
 
         System.out.println("Tentative de suppression du message id: " + dele.getMsgID());
         

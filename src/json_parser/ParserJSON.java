@@ -66,7 +66,6 @@ public abstract class ParserJSON
             while(iterator.hasNext())
             {
                 JSONObject mailJSON = iterator.next();
-                System.out.println(mailJSON);
                 
                 JSONObject expJSON = (JSONObject) mailJSON.get("from");
                 JSONObject recJSON = (JSONObject) mailJSON.get("to");

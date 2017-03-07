@@ -19,6 +19,15 @@ public class ThreadCommunication extends Thread{
     // Création d'un socket pour la réponse
     Socket replySocket = null;
     states.State currentState;
+    
+    public static ThreadLocal<String> currentUser = new ThreadLocal<String>(){
+        @Override
+        protected String initialValue()
+        {
+            return "";
+        }
+    };
+    
     /**
      * Constructeur du thread
      */
@@ -100,4 +109,9 @@ public class ThreadCommunication extends Thread{
             Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    /*public String getCurrentUser()
+    {
+        return currentUser.get();
+    }*/
 }

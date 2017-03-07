@@ -10,6 +10,7 @@ import events.DELEEvent;
 import events.STATEvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
+import server.ThreadCommunication;
 import utils.Utils;
 
 /**
@@ -39,6 +40,9 @@ public class Autorisation extends State
             System.out.println("User found.");
             message = "+OK Welcome "+apop.getUser();
             nextState = new Transaction();
+            
+            ThreadCommunication.currentUser.set(apop.getUser());
+            System.out.println(ThreadCommunication.currentUser.get());
         }
         else
         {
