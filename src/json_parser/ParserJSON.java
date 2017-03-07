@@ -17,6 +17,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import utils.MailTagEnum;
 
 /**
  *
@@ -52,20 +53,34 @@ public abstract class ParserJSON
         return null;
     }
 
-    public static ArrayList<Mail> getMails() {
-        ArrayList toRet = new ArrayList<String>();
+    public static ArrayList<Mail> getMails(String user) {
+        ArrayList toRet = new ArrayList<Mail>();
         try
         {
             JSONParser parser = new JSONParser();
             
-            JSONObject parsedFile = (JSONObject)parser.parse(new FileReader("infos.json"));
+            JSONObject parsedFile = (JSONObject)parser.parse(new FileReader("mails.json"));
             
-            JSONArray users = (JSONArray)parsedFile.get("users");
+            JSONArray users = (JSONArray)parsedFile.get("mails");
             Iterator<JSONObject> iterator = users.iterator();
             while(iterator.hasNext())
             {
-                JSONObject user = iterator.next();
-                toRet.add(user.get("user"));
+                JSONObject mailJSON = iterator.next();
+                System.out.println(mailJSON);
+                
+                /*String expName = mailJSON.get("from");
+                String exp  = ;
+                String recName = ;
+                String rec = ;
+                String sub = ;
+                String dat = ;
+                String msgID = ;
+                MailTagEnum tag = ;
+                String body = ;*/
+                
+                //Mail m = new Mail(expName, exp, recName, rec, sub, dat, msgID, tag, body);
+                //if mail.get(user)
+                //toRet.add(mail.get("user"));
             }
             
             return toRet;
