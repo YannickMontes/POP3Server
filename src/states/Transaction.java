@@ -10,6 +10,7 @@ import events.DELEEvent;
 import events.Event;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
+import model.Mail;
 import utils.Utils;
 
 /**
@@ -31,13 +32,12 @@ public class Transaction extends State
 
     @Override
     public String LauchDELE(DELEEvent dele) {
-        String message;
-        System.out.println("Vérifications des informations");
-        System.out.println("User: "+apop.getUser() + " Pass: "+ apop.getPass());
+        String message = null;
+        System.out.println("Tentative de suppression du message id: " + dele.getMsgID());
         
-        ArrayList<String> users = ParserJSON.getUsers();
+        ArrayList<Mail> mails = ParserJSON.getMails();
         
-        if(Utils.UserInList(users, apop.getUser()))
+        /*if(Utils.UserInList(users, apop.getUser()))
         {
             System.out.println("User found.");
             message = "+OK Welcome "+apop.getUser();
@@ -46,7 +46,7 @@ public class Transaction extends State
         {
             System.out.println("User not found");
             message = "-ERR User not found";
-        }
+        }*/
         return message;
     }
 
