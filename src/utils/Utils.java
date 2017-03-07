@@ -25,4 +25,9 @@ public abstract class Utils
         + "STAT - Informations sur la boite\n"
         + "...\n";
     }
+    
+    public static String CreateStringCommandNotHandleInThisState(String eventName, String stateName)
+    {
+        return "-ERR "+eventName+" is not handled in "+stateName+" state\n";
+    }
 }
