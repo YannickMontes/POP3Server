@@ -109,9 +109,4 @@ public class ThreadCommunication extends Thread{
             Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    /*public String getCurrentUser()
-    {
-        return currentUser.get();
-    }*/
 }

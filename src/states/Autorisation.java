@@ -38,11 +38,11 @@ public class Autorisation extends State
         if(Utils.UserInList(users, apop.getUser()))
         {
             System.out.println("User found.");
-            message = "+OK Welcome "+apop.getUser();
-            nextState = new Transaction();
             
             ThreadCommunication.currentUser.set(apop.getUser());
-            System.out.println(ThreadCommunication.currentUser.get());
+            
+            message = "+OK Welcome "+apop.getUser();
+            nextState = new Transaction();
         }
         else
         {

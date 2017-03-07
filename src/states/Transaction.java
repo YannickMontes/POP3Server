@@ -12,6 +12,7 @@ import events.STATEvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
 import model.Mail;
+import server.ThreadCommunication;
 import utils.Utils;
 
 /**
@@ -33,7 +34,7 @@ public class Transaction extends State
 
     @Override
     public StateAnswer LauchDELE(DELEEvent dele) {
-        String message = "Bene Bene";
+        String message = "Bene Bene " + ThreadCommunication.currentUser.get();
 
         System.out.println("Tentative de suppression du message id: " + dele.getMsgID());
         
