@@ -68,17 +68,23 @@ public abstract class ParserJSON
                 JSONObject mailJSON = iterator.next();
                 System.out.println(mailJSON);
                 
-                /*String expName = mailJSON.get("from");
-                String exp  = ;
-                String recName = ;
-                String rec = ;
-                String sub = ;
-                String dat = ;
-                String msgID = ;
-                MailTagEnum tag = ;
-                String body = ;*/
+                JSONObject expJSON = (JSONObject) mailJSON.get("from");
+                JSONObject recJSON = (JSONObject) mailJSON.get("to");
                 
-                //Mail m = new Mail(expName, exp, recName, rec, sub, dat, msgID, tag, body);
+                String exp  = (String) expJSON.get("adress");
+                String expName = (String) expJSON.get("name");
+                String recName = (String) recJSON.get("adress");
+                String rec = (String) recJSON.get("adress");
+                String sub = (String) mailJSON.get("subject");
+                String dat = (String) mailJSON.get("date");
+                String msgID = (String) mailJSON.get("message-id");
+                String tagString = (String) mailJSON.get("balise");
+                MailTagEnum tag = MailTagEnum.valueOf(tagString);
+                String body = (String) mailJSON.get("body");
+                
+                Mail m = new Mail(expName, exp, recName, rec, sub, dat, msgID, tag, body);
+                toRet.add(m);
+                System.out.println("test");
                 //if mail.get(user)
                 //toRet.add(mail.get("user"));
             }
