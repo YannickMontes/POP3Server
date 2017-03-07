@@ -3,15 +3,16 @@
 		{
 			"from": {
                 "name": "Jean-Michel",
-                "adress": "jeanmichel@gmail.com"
+                "adress": "jeanmichel"
             },
 			"to": {
                 "name": "Yannick",
-                "adress": "yannick@127.0.0.1:1024"
+                "adress": "yannick"
             },
             "subject": "Demande de conversation",
             "date": "Fri, 21 Feb 2017 09:55:06 -600",
             "message-id": "TODO",
+            "balise": "UNREAD",
             "body": "Bonjour Yannick, je souhaiterai converser avec vous!"
 		}
 	]
