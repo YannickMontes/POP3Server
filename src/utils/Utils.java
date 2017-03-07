@@ -38,9 +38,14 @@ public abstract class Utils
         
         for(Mail mail : mails)
         {
-            nbBytes += mail.getBody().getBytes().length;
+            nbBytes += Utils.GetNbBytesMail(mail);
         }
         
         return nbBytes;
+    }
+    
+    public static int GetNbBytesMail(Mail mail)
+    {
+        return mail.getBody().getBytes().length;
     }
 }
