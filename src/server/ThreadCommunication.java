@@ -94,7 +94,7 @@ public class ThreadCommunication extends Thread{
     
     public void SendServerIsReadyMessage()
     {
-        this.SendMessage("+OK POP3 Server is ready\n");
+        this.SendMessage("+OK POP3 Server is ready\r\n");
     }
     
     public void SendMessage(String messageString)
