@@ -23,10 +23,10 @@ public class Autorisation extends State
     }
 
     @Override
-    public void LauchAPOP(APOPEvent apop)
+    public String LauchAPOP(APOPEvent apop)
     {
+        String message;
         System.out.println("Vérifications des informations");
-        //Traitement APOP
         System.out.println("User: "+apop.getUser() + " Pass: "+ apop.getPass());
         
         ArrayList<String> users = ParserJSON.getUsers();
@@ -34,10 +34,13 @@ public class Autorisation extends State
         if(Utils.UserInList(users, apop.getUser()))
         {
             System.out.println("User found.");
+            message = "+OK Welcome "+apop.getUser();
         }
         else
         {
             System.out.println("User not found");
+            message = "-ERR User not found";
         }
+        return message;
     }
 }

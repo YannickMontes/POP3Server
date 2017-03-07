@@ -20,7 +20,7 @@ public class Transaction extends State
     }
 
     @Override
-    public void LauchAPOP(APOPEvent apop)
+    public String LauchAPOP(APOPEvent apop)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

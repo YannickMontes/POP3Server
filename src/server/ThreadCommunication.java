@@ -32,6 +32,7 @@ public class ThreadCommunication extends Thread{
     @Override
     public void run() 
     {
+        this.SendServerIsReadyMessage();
         String request;
         Manager manager = new Manager();
         try {
@@ -48,7 +49,7 @@ public class ThreadCommunication extends Thread{
                 request = br.readLine(); // Lit la première ligne de la requête
                 System.out.println(request);
                 
-                manager.HandleCommand(request, state);
+                String server_response = manager.HandleCommand(request, state);
                 
                 
                 /*switch(evt)
@@ -70,10 +71,29 @@ public class ThreadCommunication extends Thread{
                         break;
                 }*/
                 
+                this.SendMessage(server_response);
                 
             } catch (IOException ex) {
                 Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+    
+    public void SendServerIsReadyMessage()
+    {
+        this.SendMessage("+OK POP3 Server is ready\n");
+    }
+    
+    public void SendMessage(String messageString)
+    {
+        try
+        {
+            byte[] message = new byte[messageString.getBytes().length];
+            System.arraycopy(messageString.getBytes(), 0, message, 0, messageString.getBytes().length);
+            replySocket.getOutputStream().write(message);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

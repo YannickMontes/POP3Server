@@ -6,7 +6,6 @@
 package server;
 
 import events.APOPEvent;
-import events.Event;
 import states.State;
 import events.EventEnum;
 
@@ -18,7 +17,7 @@ public class Manager
 {
     
     
-    public void HandleCommand(String receivedMessage, State currentState)
+    public String HandleCommand(String receivedMessage, State currentState)
     {
         //Split the received message by space, to know what is the command
         //and what are the args
@@ -32,8 +31,10 @@ public class Manager
         catch(IllegalArgumentException e)
         {
             //Envoyer ERR
-            return;
+            return "-ERR Somthing wrong happened\n";
         }
+        
+        String returnedMessage="";
                 
         switch(command)
         {
@@ -44,14 +45,13 @@ public class Manager
                 {
                     //Envoyer ERR
                     System.out.println("Arguments non valides pour la commande APOP");
-                    return;
+                    return "-ERR Invalid arguments\n";
                 }
                 String user = message_split[1];
                 String pass = message_split[2];
                 
                 
-                currentState.LauchAPOP(new APOPEvent(user, pass));
-                
+                returnedMessage = currentState.LauchAPOP(new APOPEvent(user, pass));
                 break;
                 
             case STAT:
@@ -74,5 +74,7 @@ public class Manager
                 System.out.println("Switch case not handled yet");
                 break;
         }
+        
+        return returnedMessage;
     }
 }

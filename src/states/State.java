@@ -25,7 +25,7 @@ public abstract class State
         this.currentState = state;
     }
     
-    public abstract void LauchAPOP(APOPEvent apop);
+    public abstract String LauchAPOP(APOPEvent apop);
     //public abstract void LauchSTAT(STATEvent stat);
     //public abstract void LauchLIST(LISTEvent list);
     //public abstract void LauchDELE(DELEEvent dele);
