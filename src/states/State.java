@@ -26,6 +26,11 @@ public abstract class State
         this.currentState = state;
     }
     
+    public String getStateName()
+    {
+        return this.currentState.toString();
+    }
+    
     public abstract String LauchAPOP(APOPEvent apop);
     //public abstract void LauchSTAT(STATEvent stat);
     //public abstract void LauchLIST(LISTEvent list);

@@ -46,7 +46,8 @@ public class Autorisation extends State
     }
 
     @Override
-    public String LauchDELE(DELEEvent dele) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String LauchDELE(DELEEvent dele) 
+    {
+        return Utils.CreateStringCommandNotHandleInThisState(dele.getEventName(), this.getStateName());
     }
 }
