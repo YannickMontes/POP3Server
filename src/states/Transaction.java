@@ -39,17 +39,16 @@ public class Transaction extends State
         String message;
 
         System.out.println("Tentative de suppression du message id: " + dele.getMsgID());
-        System.out.println(ThreadCommunication.currentUser.get());
         
         ArrayList<Mail> mails = ParserJSON.getMails(ThreadCommunication.currentUser.get());
 
         try {
             if (mails.get(dele.getMsgID() - 1).getTag() == MailTagEnum.DELETED) {
-                message = "-ERR message " + (dele.getMsgID() - 1) + " already deleted";
+                message = "-ERR message " + dele.getMsgID() + " already deleted";
             }
             else {
                 mails.get(dele.getMsgID() - 1).deleteMessage();
-                message = "+OK message " + (dele.getMsgID() - 1) + " deleted";
+                message = "+OK message " + dele.getMsgID() + " deleted";
             }
             
         } catch (Exception e) {
