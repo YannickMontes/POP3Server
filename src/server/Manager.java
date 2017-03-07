@@ -6,6 +6,7 @@
 package server;
 
 import events.APOPEvent;
+import events.DELEEvent;
 import states.State;
 import events.EventEnum;
 import states.StateAnswer;
@@ -100,7 +101,7 @@ public class Manager
                 }
                 else
                 {
-                    //returnedMessage = currentState.LaunchDELE(new DELEEvent(message_split[1]));
+                    response = currentState.LauchDELE(new DELEEvent(Integer.parseInt(message_split[1])));
                 }
                 break;
                 
