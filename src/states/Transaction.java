@@ -6,6 +6,7 @@
 package states;
 
 import events.APOPEvent;
+import events.DELEEvent;
 import events.Event;
 
 /**
@@ -22,6 +23,11 @@ public class Transaction extends State
     @Override
     public String LauchAPOP(APOPEvent apop)
     {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void LauchDELE(DELEEvent dele) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
