@@ -36,7 +36,7 @@ public class Manager
         catch(IllegalArgumentException e)
         {
             //Envoyer ERR
-            return new StateAnswer(null, "-ERR Somthing wrong happened\n");
+            return new StateAnswer(null, "-ERR Somthing wrong happened\r\n");
         }
         
         StateAnswer response = null;
@@ -51,7 +51,7 @@ public class Manager
                 {
                     //Envoyer ERR
                     System.out.println("Arguments non valides pour la commande APOP");
-                    returnedMessage = "-ERR APOP command take two arguments\n";
+                    returnedMessage = "-ERR APOP command take two arguments\r\n";
                 }
                 else
                 {
@@ -67,7 +67,7 @@ public class Manager
                 
                 if(message_split.length != 1)
                 {
-                    returnedMessage = "-ERR STAT command take no arguments\n";
+                    returnedMessage = "-ERR STAT command take no arguments\r\n";
                 }
                 else
                 {
@@ -81,7 +81,7 @@ public class Manager
                 
                 if(message_split.length > 2)
                 {
-                    returnedMessage = "-ERR LIST command take only one optional argument\n";
+                    returnedMessage = "-ERR LIST command take only one optional argument\r\n";
                 }
                 else if(message_split.length == 2)
                 {
@@ -99,7 +99,7 @@ public class Manager
                 
                 if(message_split.length != 2)
                 {
-                    returnedMessage = "-ERR RETR command take one argument\n";
+                    returnedMessage = "-ERR RETR command take one argument\r\n";
                 }
                 else
                 {
@@ -112,7 +112,7 @@ public class Manager
                 
                 if(message_split.length != 2)
                 {
-                    returnedMessage = "-ERR DELE command take one argument\n";
+                    returnedMessage = "-ERR DELE command take one argument\r\n";
                 }
                 else
                 {
@@ -124,7 +124,7 @@ public class Manager
                 System.out.println("[DEBUG]QUIT recu");
                 if(message_split.length != 1)
                 {
-                    returnedMessage = "-ERR QUIT Command only take no arguments\n";
+                    returnedMessage = "-ERR QUIT Command only take no arguments\r\n";
                 }
                 else
                 {
