@@ -29,7 +29,7 @@ public abstract class State
     public abstract String LauchAPOP(APOPEvent apop);
     //public abstract void LauchSTAT(STATEvent stat);
     //public abstract void LauchLIST(LISTEvent list);
-    public abstract void LauchDELE(DELEEvent dele);
+    public abstract String LauchDELE(DELEEvent dele);
     //public abstract void LauchQUIT(QUITEvent quit);
     //public abstract void LauchRETR(RETRvent retr);
     
