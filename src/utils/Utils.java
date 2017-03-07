@@ -17,4 +17,12 @@ public abstract class Utils
     {
         return list.contains(user);  
     }
+
+    public static String GenerateHelpMessage()
+    {
+        return "-ERR Commande non reconnue\nVoici la liste des commandes disponibles:\n"
+        + "APOP <user> <pass> - Permet de se connecter\n"
+        + "STAT - Informations sur la boite\n"
+        + "...\n";
+    }
 }
