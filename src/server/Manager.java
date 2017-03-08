@@ -12,6 +12,7 @@ import events.EventEnum;
 import events.LISTEvent;
 import events.RETREvent;
 import events.STATEvent;
+import events.USEREvent;
 import states.StateAnswer;
 import utils.Utils;
 
@@ -59,6 +60,36 @@ public class Manager
                     String user = message_split[1];
                     String pass = message_split[2];          
                     response = currentState.LauchAPOP(new APOPEvent(user, pass));
+                }
+                
+                break;
+                
+            case USER:
+                System.out.println("[DEBUG]USER recu par " + ThreadCommunication.currentUser.get());
+                
+                if(message_split.length != 2)
+                {
+                    returnedMessage = "-ERR USER command take on argument\r\n";
+                }
+                else
+                {
+                    String user = message_split[1];
+                    //response = currentState.LaunchUSER(new USEREvent(user));
+                }
+                
+                break;
+            
+            case PASS:
+                System.out.println("[DEBUG]PASS recu par " + ThreadCommunication.currentUser.get());
+                
+                if(message_split.length != 2)
+                {
+                    returnedMessage = "-ERR PASS command take on argument\r\n";
+                }
+                else
+                {
+                    String pass = message_split[1];
+                    //response = currentState.LaunchPASS(new PASSEvent(pass));
                 }
                 
                 break;
