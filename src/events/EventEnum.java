@@ -11,5 +11,7 @@ public enum EventEnum
     LIST, 
     DELE, 
     QUIT,
-    RETR
+    RETR,
+    USER, 
+    PASS
 }
