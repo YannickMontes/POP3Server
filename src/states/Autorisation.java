@@ -8,8 +8,10 @@ package states;
 import events.APOPEvent;
 import events.DELEEvent;
 import events.LISTEvent;
+import events.PASSEvent;
 import events.RETREvent;
 import events.STATEvent;
+import events.USEREvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
 import server.ThreadCommunication;
@@ -52,6 +54,48 @@ public class Autorisation extends State
             message = "-ERR User not found\r\n";
             nextState = null;
         }
+        return new StateAnswer(nextState, message);
+    }
+    
+    @Override
+    public StateAnswer LaunchUSER(USEREvent user)
+    {
+        String message;
+        
+        ArrayList<String> users = ParserJSON.getUsers();
+        
+        if(Utils.UserInList(users, user.getUserName()))
+        {
+            ThreadCommunication.currentUser.set(user.getUserName());
+            
+            message = "+OK User found. Please send your pass\r\n";
+        }
+        else
+        {
+            message = "-ERR User not found\r\n";
+        }
+        
+        return new StateAnswer(null, message);
+    }
+
+    @Override
+    public StateAnswer LaunchPASS(PASSEvent pass)
+    {
+        String message;
+        State nextState = null;
+        String password = ParserJSON.getPassForUser(ThreadCommunication.currentUser.get());
+        
+        if(Utils.PassAreEquals(pass.getPass(), password))
+        {
+            message = "+OK Welcome "+ThreadCommunication.currentUser.get()+"\r\n";
+            nextState = new Transaction();
+        }
+        else
+        {
+            message = "-ERR Password incorect\r\n";
+            nextState = null;
+        }
+        
         return new StateAnswer(nextState, message);
     }
 

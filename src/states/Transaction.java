@@ -8,8 +8,10 @@ package states;
 import events.APOPEvent;
 import events.DELEEvent;
 import events.LISTEvent;
+import events.PASSEvent;
 import events.RETREvent;
 import events.STATEvent;
+import events.USEREvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
 import model.Mail;
@@ -120,6 +122,18 @@ public class Transaction extends State
         }
         
         return new StateAnswer(null, message);
+    }
+
+    @Override
+    public StateAnswer LaunchUSER(USEREvent user)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(user.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LaunchPASS(PASSEvent pass)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(pass.getEventName(), this.getStateName()));
     }
 
 }

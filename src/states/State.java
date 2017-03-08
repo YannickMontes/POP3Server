@@ -9,8 +9,10 @@ import events.EventEnum;
 import events.APOPEvent;
 import events.DELEEvent;
 import events.LISTEvent;
+import events.PASSEvent;
 import events.RETREvent;
 import events.STATEvent;
+import events.USEREvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,8 @@ public abstract class State
     }
     
     public abstract StateAnswer LauchAPOP(APOPEvent apop);
+    public abstract StateAnswer LaunchUSER(USEREvent user);
+    public abstract StateAnswer LaunchPASS(PASSEvent pass);
     public abstract StateAnswer LauchSTAT(STATEvent stat);
     public abstract StateAnswer LauchLIST(LISTEvent list);
     public abstract StateAnswer LauchDELE(DELEEvent dele);

@@ -8,8 +8,10 @@ package states;
 import events.APOPEvent;
 import events.DELEEvent;
 import events.LISTEvent;
+import events.PASSEvent;
 import events.RETREvent;
 import events.STATEvent;
+import events.USEREvent;
 import utils.Utils;
 
 /**
@@ -50,6 +52,18 @@ public class Update extends State
     public StateAnswer LauchLIST(LISTEvent list)
     {
         return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(list.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LaunchUSER(USEREvent user)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(user.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LaunchPASS(PASSEvent pass)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(pass.getEventName(), this.getStateName()));
     }
     
 }
