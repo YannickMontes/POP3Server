@@ -16,6 +16,7 @@ public class LISTEvent extends Event
     public LISTEvent()
     {
         super(EventEnum.LIST);
+        this.messageID = -1;
     }
     
     public LISTEvent(int msgId)

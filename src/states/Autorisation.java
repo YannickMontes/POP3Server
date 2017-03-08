@@ -7,6 +7,7 @@ package states;
 
 import events.APOPEvent;
 import events.DELEEvent;
+import events.LISTEvent;
 import events.RETREvent;
 import events.STATEvent;
 import java.util.ArrayList;
@@ -42,13 +43,13 @@ public class Autorisation extends State
             
             ThreadCommunication.currentUser.set(apop.getUser());
             
-            message = "+OK Welcome "+apop.getUser();
+            message = "+OK Welcome "+apop.getUser()+"\r\n";
             nextState = new Transaction();
         }
         else
         {
             System.out.println("User not found");
-            message = "-ERR User not found";
+            message = "-ERR User not found\r\n";
             nextState = null;
         }
         return new StateAnswer(nextState, message);
@@ -70,5 +71,11 @@ public class Autorisation extends State
     public StateAnswer LauchRETR(RETREvent retr)
     {
         return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(retr.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LauchLIST(LISTEvent list)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(list.getEventName(), this.getStateName()));
     }
 }

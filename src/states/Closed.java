@@ -7,6 +7,7 @@ package states;
 
 import events.APOPEvent;
 import events.DELEEvent;
+import events.LISTEvent;
 import events.RETREvent;
 import events.STATEvent;
 import utils.Utils;
@@ -43,6 +44,12 @@ public class Closed extends State
     public StateAnswer LauchRETR(RETREvent retr)
     {
         return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(retr.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LauchLIST(LISTEvent list)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(list.getEventName(), this.getStateName()));
     }
     
 }

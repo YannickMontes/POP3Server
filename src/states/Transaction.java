@@ -7,7 +7,7 @@ package states;
 
 import events.APOPEvent;
 import events.DELEEvent;
-import events.Event;
+import events.LISTEvent;
 import events.RETREvent;
 import events.STATEvent;
 import java.util.ArrayList;
@@ -44,15 +44,15 @@ public class Transaction extends State
 
         try {
             if (mails.get(dele.getMsgID() - 1).getTag() == MailTagEnum.DELETED) {
-                message = "-ERR message " + dele.getMsgID() + " already deleted";
+                message = "-ERR message " + dele.getMsgID() + " already deleted\r\n";
             }
             else {
                 mails.get(dele.getMsgID() - 1).deleteMessage();
-                message = "+OK message " + dele.getMsgID() + " deleted";
+                message = "+OK message " + dele.getMsgID() + " deleted\r\n";
             }
             
         } catch (Exception e) {
-            message = "-ERR numéro de message invalide";
+            message = "-ERR numéro de message invalide\r\n";
         }
         
         return new StateAnswer(null, message);
@@ -86,6 +86,37 @@ public class Transaction extends State
         catch(Exception e)
         {
             message = "-ERR numero de message invalide\r\n";
+        }
+        
+        return new StateAnswer(null, message);
+    }
+
+    @Override
+    public StateAnswer LauchLIST(LISTEvent list)
+    {
+        String message;
+        
+        ArrayList<Mail> mails = ParserJSON.getMails(ThreadCommunication.currentUser.get());
+        
+        if(list.getMessageID() != -1)
+        {
+            try
+            {
+                message = "+OK "+list.getMessageID()+" "+mails.get(list.getMessageID()-1).getBody().getBytes().length+"\r\n";
+            }
+            catch(Exception e)
+            {
+                message = "-ERR no such message, only "+mails.size()+" in mailbox\r\n";
+            }
+        }
+        else
+        {
+            message = "+OK "+mails.size()+" messages\r\n";
+            for(int i=0; i<mails.size(); i++)
+            {
+                message += (i+1)+" "+mails.get(i).getBody().getBytes().length+"\r\n";
+            }
+            message += ".\r\n";
         }
         
         return new StateAnswer(null, message);

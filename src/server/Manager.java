@@ -9,6 +9,7 @@ import events.APOPEvent;
 import events.DELEEvent;
 import states.State;
 import events.EventEnum;
+import events.LISTEvent;
 import events.RETREvent;
 import events.STATEvent;
 import states.StateAnswer;
@@ -36,7 +37,7 @@ public class Manager
         catch(IllegalArgumentException e)
         {
             //Envoyer ERR
-            return new StateAnswer(null, "-ERR Somthing wrong happened\r\n");
+            return new StateAnswer(null, Utils.GenerateHelpMessage());
         }
         
         StateAnswer response = null;
@@ -85,11 +86,11 @@ public class Manager
                 }
                 else if(message_split.length == 2)
                 {
-                    //returnedMessage = currentState.LauchLIST(new LISTEvent(message_split[1]));
+                    response = currentState.LauchLIST(new LISTEvent(Integer.parseInt(message_split[1])));
                 }
                 else
                 {
-                    //returnedMessage = currentState.LauchLIST(new LISTEvent());
+                    response = currentState.LauchLIST(new LISTEvent());
                 }
                 
                 break;
