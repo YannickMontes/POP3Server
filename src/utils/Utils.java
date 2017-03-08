@@ -48,4 +48,9 @@ public abstract class Utils
     {
         return mail.getBody().getBytes().length;
     }
+
+    public static boolean PassAreEquals(String pass, String password)
+    {
+        return pass.equals(password);
+    }
 }
