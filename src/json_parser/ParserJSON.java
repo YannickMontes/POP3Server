@@ -8,7 +8,6 @@ package json_parser;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,6 +87,39 @@ public abstract class ParserJSON
             }
             
             return toRet;
+        } catch (IOException ex)
+        {
+            Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex)
+        {
+            Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static String getPassForUser(String username)
+    {
+        String pass = "";
+        
+        try
+        {
+            JSONParser parser = new JSONParser();
+            
+            JSONObject parsedFile = (JSONObject)parser.parse(new FileReader("infos.json"));
+            
+            JSONArray users = (JSONArray)parsedFile.get("users");
+            Iterator<JSONObject> iterator = users.iterator();
+            while(iterator.hasNext())
+            {
+                JSONObject user = iterator.next();
+                if(username.equals(user.get("user")))
+                {
+                    pass = user.get("pass").toString();
+                    return pass;
+                }
+            }
+            
+            return pass;
         } catch (IOException ex)
         {
             Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
