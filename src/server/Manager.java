@@ -10,6 +10,7 @@ import events.DELEEvent;
 import states.State;
 import events.EventEnum;
 import events.LISTEvent;
+import events.PASSEvent;
 import events.RETREvent;
 import events.STATEvent;
 import events.USEREvent;
@@ -74,7 +75,7 @@ public class Manager
                 else
                 {
                     String user = message_split[1];
-                    //response = currentState.LaunchUSER(new USEREvent(user));
+                    response = currentState.LaunchUSER(new USEREvent(user));
                 }
                 
                 break;
@@ -89,7 +90,7 @@ public class Manager
                 else
                 {
                     String pass = message_split[1];
-                    //response = currentState.LaunchPASS(new PASSEvent(pass));
+                    response = currentState.LaunchPASS(new PASSEvent(pass));
                 }
                 
                 break;
