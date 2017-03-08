@@ -85,7 +85,12 @@ public class Autorisation extends State
         State nextState = null;
         String password = ParserJSON.getPassForUser(ThreadCommunication.currentUser.get());
         
-        if(Utils.PassAreEquals(pass.getPass(), password))
+        if(ThreadCommunication.currentUser.get().isEmpty())
+        {
+            message = "-ERR Send your user name before\r\n";
+            nextState = null;
+        }
+        else if(Utils.PassAreEquals(pass.getPass(), password))
         {
             message = "+OK Welcome "+ThreadCommunication.currentUser.get()+"\r\n";
             nextState = new Transaction();
