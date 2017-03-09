@@ -86,7 +86,7 @@ public class Transaction extends State
         try
         {
             message = "+OK "+Utils.GetNbBytesMail(mails.get(retr.getMessageID()-1))+" octets\r\n";
-            message += mails.get(retr.getMessageID()-1).getBody()+"\r\n";
+            message += mails.get(retr.getMessageID()-1).toString();
             message += ".\r\n";
         }
         catch(Exception e)

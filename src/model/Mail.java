@@ -73,4 +73,20 @@ public class Mail {
     public void deleteMessage() {
         this.tag = MailTagEnum.DELETED;
     }
+
+    @Override
+    public String toString()
+    {
+        String toString="";
+    
+        toString+= "From: "+this.expeditorName+" <"+this.expeditor+">\r\n";
+        toString+= "To: "+this.receptorName+" <"+this.receptor+">\r\n";
+        toString+= "Date: "+this.date+"\r\n";
+        toString+= "Subject: "+this.subject+"\r\n";
+        toString+= this.body+"\r\n";
+        
+        return toString;
+    }
+    
+    
 }
