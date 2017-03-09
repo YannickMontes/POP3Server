@@ -14,6 +14,7 @@ import events.NOOPEvent;
 import events.PASSEvent;
 import events.QUITEvent;
 import events.RETREvent;
+import events.RSETEvent;
 import events.STATEvent;
 import events.USEREvent;
 import states.StateAnswer;
@@ -152,6 +153,19 @@ public class Manager
                 else
                 {
                     response = currentState.LauchDELE(new DELEEvent(Integer.parseInt(message_split[1])));
+                }
+                break;
+                
+            case RSET:
+                System.out.println("[DEBUG]RSET recu par " + ThreadCommunication.currentUser.get());
+                
+                if(message_split.length != 1)
+                {
+                    returnedMessage = "-ERR RSET command take no argument\r\n";
+                }
+                else
+                {
+                    response = currentState.LaunchRSET(new RSETEvent());
                 }
                 break;
                 

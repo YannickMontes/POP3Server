@@ -12,6 +12,7 @@ import events.NOOPEvent;
 import events.PASSEvent;
 import events.QUITEvent;
 import events.RETREvent;
+import events.RSETEvent;
 import events.STATEvent;
 import events.USEREvent;
 import utils.Utils;
@@ -78,5 +79,11 @@ public class Update extends State
     public StateAnswer LaunchNOOP(NOOPEvent noop)
     {
         return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(noop.getEventName(), this.getStateName()));
+    }
+    
+    @Override
+    public StateAnswer LaunchRSET(RSETEvent rset)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(rset.getEventName(), this.getStateName()));
     }
 }

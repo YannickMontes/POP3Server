@@ -12,6 +12,7 @@ import events.NOOPEvent;
 import events.PASSEvent;
 import events.QUITEvent;
 import events.RETREvent;
+import events.RSETEvent;
 import events.STATEvent;
 import events.USEREvent;
 import java.util.ArrayList;
@@ -164,5 +165,21 @@ public class Transaction extends State
     {
         return new StateAnswer(null, "+OK\r\n");
     }
-
+    
+    @Override
+    public StateAnswer LaunchRSET(RSETEvent rset)
+    {
+        String message;
+        
+        if(ParserJSON.unmarkDeleteMails(ThreadCommunication.currentUser.get()))
+        {
+            message = "+OK Mails mark as DELETED are now unmarked\r\n";
+        }
+        else
+        {
+            message = "-ERR Error while unmarking the mails\r\n";
+        }
+        
+        return new StateAnswer(null, message);
+    }
 }

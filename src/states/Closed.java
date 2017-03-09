@@ -12,6 +12,7 @@ import events.NOOPEvent;
 import events.PASSEvent;
 import events.QUITEvent;
 import events.RETREvent;
+import events.RSETEvent;
 import events.STATEvent;
 import events.USEREvent;
 import utils.Utils;
@@ -80,4 +81,9 @@ public class Closed extends State
         return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(noop.getEventName(), this.getStateName()));
     }
     
+    @Override
+    public StateAnswer LaunchRSET(RSETEvent rset)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(rset.getEventName(), this.getStateName()));
+    }
 }

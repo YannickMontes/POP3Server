@@ -13,6 +13,7 @@ import events.NOOPEvent;
 import events.PASSEvent;
 import events.QUITEvent;
 import events.RETREvent;
+import events.RSETEvent;
 import events.STATEvent;
 import events.USEREvent;
 import java.util.ArrayList;
@@ -47,4 +48,5 @@ public abstract class State
     public abstract StateAnswer LauchQUIT(QUITEvent quit);
     public abstract StateAnswer LauchRETR(RETREvent retr);
     public abstract StateAnswer LaunchNOOP(NOOPEvent noop);
+    public abstract StateAnswer LaunchRSET(RSETEvent rset);
 }
