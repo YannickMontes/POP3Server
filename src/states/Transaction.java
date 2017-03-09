@@ -9,6 +9,7 @@ import events.APOPEvent;
 import events.DELEEvent;
 import events.LISTEvent;
 import events.PASSEvent;
+import events.QUITEvent;
 import events.RETREvent;
 import events.STATEvent;
 import events.USEREvent;
@@ -45,11 +46,14 @@ public class Transaction extends State
         ArrayList<Mail> mails = ParserJSON.getMails(ThreadCommunication.currentUser.get());
 
         try {
-            if (mails.get(dele.getMsgID() - 1).getTag() == MailTagEnum.DELETED) {
+            if (mails.get(dele.getMsgID() - 1).getTag() == MailTagEnum.DELETED) 
+            {
                 message = "-ERR message " + dele.getMsgID() + " already deleted\r\n";
             }
-            else {
-                mails.get(dele.getMsgID() - 1).deleteMessage();
+            else 
+            {
+                ParserJSON.markMailAsForUser(ThreadCommunication.currentUser.get(), MailTagEnum.DELETED, dele.getMsgID());
+                //mails.get(dele.getMsgID() - 1).deleteMessage();
                 message = "+OK message " + dele.getMsgID() + " deleted\r\n";
             }
             
@@ -134,6 +138,24 @@ public class Transaction extends State
     public StateAnswer LaunchPASS(PASSEvent pass)
     {
         return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(pass.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LauchQUIT(QUITEvent quit)
+    {
+        String message;
+        State nextState = new Update();
+        
+        if(ParserJSON.deleteMailsMarkAsDeletedForUser(ThreadCommunication.currentUser.get()))
+        {
+            message = "+OK Messages mark as deleted were deleted. POP3 Server signing off\r\n";
+        }
+        else
+        {
+            message = "-ERR Issue while deleting the mails. POP3 server signing off\r\n";
+        }
+        
+        return new StateAnswer(nextState, message);
     }
 
 }

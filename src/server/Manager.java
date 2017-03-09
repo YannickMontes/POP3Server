@@ -11,6 +11,7 @@ import states.State;
 import events.EventEnum;
 import events.LISTEvent;
 import events.PASSEvent;
+import events.QUITEvent;
 import events.RETREvent;
 import events.STATEvent;
 import events.USEREvent;
@@ -161,7 +162,7 @@ public class Manager
                 }
                 else
                 {
-                    //returnedMessage = currentState.LaunchQUIT(new QUITEvent());
+                    response = currentState.LauchQUIT(new QUITEvent());
                 }
                 break;
             

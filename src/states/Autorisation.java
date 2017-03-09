@@ -9,6 +9,7 @@ import events.APOPEvent;
 import events.DELEEvent;
 import events.LISTEvent;
 import events.PASSEvent;
+import events.QUITEvent;
 import events.RETREvent;
 import events.STATEvent;
 import events.USEREvent;
@@ -126,5 +127,17 @@ public class Autorisation extends State
     public StateAnswer LauchLIST(LISTEvent list)
     {
         return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(list.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LauchQUIT(QUITEvent quit)
+    {
+        String message;
+        State nextState = new Closed();
+        
+        message = "+OK POP3 Server is signing off\r\n";
+        
+        
+        return new StateAnswer(nextState, message);
     }
 }

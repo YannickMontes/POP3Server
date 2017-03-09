@@ -6,6 +6,7 @@
 package json_parser;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -60,8 +61,8 @@ public abstract class ParserJSON
             
             JSONObject parsedFile = (JSONObject)parser.parse(new FileReader("mails.json"));
             
-            JSONArray users = (JSONArray)parsedFile.get("mails");
-            Iterator<JSONObject> iterator = users.iterator();
+            JSONArray mails = (JSONArray)parsedFile.get("mails");
+            Iterator<JSONObject> iterator = mails.iterator();
             while(iterator.hasNext())
             {
                 JSONObject mailJSON = iterator.next();
@@ -95,6 +96,55 @@ public abstract class ParserJSON
             Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public static boolean markMailAsForUser(String user, MailTagEnum tag, int mailNumber)
+    {
+        int cptMailUser = 0;
+        try
+        {
+            JSONParser parser = new JSONParser();
+            
+            FileReader reader = new FileReader("mails.json");
+            
+            JSONObject parsedFile = (JSONObject)parser.parse(reader );
+            
+            JSONArray mails = (JSONArray)parsedFile.get("mails");
+            Iterator<JSONObject> iterator = mails.iterator();
+            while(iterator.hasNext())
+            {
+                JSONObject mailJSON = iterator.next();
+                
+                JSONObject recJSON = (JSONObject) mailJSON.get("to");
+                
+                if(recJSON.get("name").equals(user))
+                {
+                    cptMailUser++;
+                    if(cptMailUser == mailNumber)
+                    {
+                        mailJSON.put("balise", tag.toString());
+                    }
+                }
+            }
+            
+            reader.close();
+            
+            FileWriter writer = new FileWriter("mails.json");
+            
+            writer.write(parsedFile.toJSONString());
+            writer.flush();
+            writer.close();
+            
+            return true;
+        } catch (IOException ex)
+        {
+            Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (ParseException ex)
+        {
+            Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     public static String getPassForUser(String username)
@@ -130,6 +180,99 @@ public abstract class ParserJSON
         return null;
     }
 
+    public static boolean deleteMailsMarkAsDeletedForUser(String username)
+    {
+        try
+        {
+            JSONParser parser = new JSONParser();
+            
+            FileReader reader = new FileReader("mails.json");
+            
+            JSONObject parsedFile = (JSONObject)parser.parse(reader);
+            
+            JSONArray mails = (JSONArray)parsedFile.get("mails");
+            ArrayList<JSONObject> mailsToRemove = new ArrayList();
+            Iterator<JSONObject> iterator = mails.iterator();
+            while(iterator.hasNext())
+            {
+                JSONObject mailJSON = iterator.next();
+                
+                JSONObject recJSON = (JSONObject) mailJSON.get("to");
+                
+                if(recJSON.get("name").equals(username) && mailJSON.get("balise").equals(MailTagEnum.DELETED.toString()))
+                {
+                    mailsToRemove.add(mailJSON);
+                }
+            }
+            for(JSONObject mail : mailsToRemove)
+            {
+                mails.remove(mail);
+            }
+            
+            reader.close();
+            
+            FileWriter writer = new FileWriter("mails.json");
+            
+            writer.write(parsedFile.toJSONString());
+            writer.flush();
+            writer.close();
+            
+            return true;
+        } catch (IOException ex)
+        {
+            Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (ParseException ex)
+        {
+            Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
     
-    
+    public static boolean unmarkDeleteMails(String user)
+    {
+        try
+        {
+            JSONParser parser = new JSONParser();
+            
+            FileReader reader = new FileReader("mails.json");
+            
+            JSONObject parsedFile = (JSONObject)parser.parse(reader);
+            
+            JSONArray mails = (JSONArray)parsedFile.get("mails");
+            Iterator<JSONObject> iterator = mails.iterator();
+            while(iterator.hasNext())
+            {
+                JSONObject mailJSON = iterator.next();
+                
+                JSONObject recJSON = (JSONObject) mailJSON.get("to");
+                
+                if(recJSON.get("name").equals(user))
+                {
+                    if(mailJSON.get("balise").equals(MailTagEnum.DELETED.toString()))
+                    {
+                        mailJSON.put("balise", MailTagEnum.READ.toString());
+                    }
+                }
+            }
+            
+            reader.close();
+            
+            FileWriter writer = new FileWriter("mails.json");
+            
+            writer.write(parsedFile.toJSONString());
+            writer.flush();
+            writer.close();
+            
+            return true;
+        } catch (IOException ex)
+        {
+            Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (ParseException ex)
+        {
+            Logger.getLogger(ParserJSON.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }

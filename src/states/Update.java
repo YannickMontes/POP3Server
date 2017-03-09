@@ -9,6 +9,7 @@ import events.APOPEvent;
 import events.DELEEvent;
 import events.LISTEvent;
 import events.PASSEvent;
+import events.QUITEvent;
 import events.RETREvent;
 import events.STATEvent;
 import events.USEREvent;
@@ -64,6 +65,12 @@ public class Update extends State
     public StateAnswer LaunchPASS(PASSEvent pass)
     {
         return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(pass.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LauchQUIT(QUITEvent quit)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(quit.getEventName(), this.getStateName()));
     }
     
 }
