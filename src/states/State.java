@@ -9,6 +9,7 @@ import events.EventEnum;
 import events.APOPEvent;
 import events.DELEEvent;
 import events.LISTEvent;
+import events.NOOPEvent;
 import events.PASSEvent;
 import events.QUITEvent;
 import events.RETREvent;
@@ -45,4 +46,5 @@ public abstract class State
     public abstract StateAnswer LauchDELE(DELEEvent dele);
     public abstract StateAnswer LauchQUIT(QUITEvent quit);
     public abstract StateAnswer LauchRETR(RETREvent retr);
+    public abstract StateAnswer LaunchNOOP(NOOPEvent noop);
 }

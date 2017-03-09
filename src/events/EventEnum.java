@@ -13,5 +13,6 @@ public enum EventEnum
     QUIT,
     RETR,
     USER, 
-    PASS
+    PASS,
+    NOOP
 }

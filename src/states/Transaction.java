@@ -8,6 +8,7 @@ package states;
 import events.APOPEvent;
 import events.DELEEvent;
 import events.LISTEvent;
+import events.NOOPEvent;
 import events.PASSEvent;
 import events.QUITEvent;
 import events.RETREvent;
@@ -156,6 +157,12 @@ public class Transaction extends State
         }
         
         return new StateAnswer(nextState, message);
+    }
+
+    @Override
+    public StateAnswer LaunchNOOP(NOOPEvent noop)
+    {
+        return new StateAnswer(null, "+OK\r\n");
     }
 
 }

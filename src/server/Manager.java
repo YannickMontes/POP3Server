@@ -10,6 +10,7 @@ import events.DELEEvent;
 import states.State;
 import events.EventEnum;
 import events.LISTEvent;
+import events.NOOPEvent;
 import events.PASSEvent;
 import events.QUITEvent;
 import events.RETREvent;
@@ -158,11 +159,23 @@ public class Manager
                 System.out.println("[DEBUG]QUIT recu par " + ThreadCommunication.currentUser.get());
                 if(message_split.length != 1)
                 {
-                    returnedMessage = "-ERR QUIT Command only take no arguments\r\n";
+                    returnedMessage = "-ERR QUIT Command take no arguments\r\n";
                 }
                 else
                 {
                     response = currentState.LauchQUIT(new QUITEvent());
+                }
+                break;
+                
+            case NOOP:
+                System.out.println("[DEBUG]NOOP recu par " + ThreadCommunication.currentUser.get());
+                if(message_split.length != 1)
+                {
+                    returnedMessage = "-ERR NOOP Command take no arguments\r\n";
+                }
+                else
+                {
+                    response = currentState.LaunchNOOP(new NOOPEvent());
                 }
                 break;
             

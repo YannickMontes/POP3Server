@@ -8,6 +8,7 @@ package states;
 import events.APOPEvent;
 import events.DELEEvent;
 import events.LISTEvent;
+import events.NOOPEvent;
 import events.PASSEvent;
 import events.QUITEvent;
 import events.RETREvent;
@@ -73,4 +74,9 @@ public class Update extends State
         return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(quit.getEventName(), this.getStateName()));
     }
     
+    @Override
+    public StateAnswer LaunchNOOP(NOOPEvent noop)
+    {
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(noop.getEventName(), this.getStateName()));
+    }
 }
