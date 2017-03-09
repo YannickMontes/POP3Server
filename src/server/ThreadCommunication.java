@@ -9,17 +9,18 @@ import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import states.Autorisation;
+import states.Closed;
 import states.StateAnswer;
+import states.Update;
 
 /**
  *
  * @author Yoann LATHUILIERE
  */
 public class ThreadCommunication extends Thread{
-    // Création d'un socket pour la réponse
-    Socket replySocket = null;
-    states.State currentState;
-    
+    private Socket replySocket = null;
+    private states.State currentState;
+    private Manager manager;
     public static ThreadLocal<String> currentUser = new ThreadLocal<String>(){
         @Override
         protected String initialValue()
@@ -27,69 +28,67 @@ public class ThreadCommunication extends Thread{
             return "";
         }
     };
-    
-    /**
-     * Constructeur du thread
-     */
-    public ThreadCommunication(Socket s) {
+
+    public ThreadCommunication(Socket s) 
+    {
         replySocket = s;  
         currentState = new Autorisation();
     }
 
-    /**
-     * Fonction run du thread, qui est chargé de récuperer la requête du serveur et de l'executer
-     */
     @Override
     public void run() 
     {
+        this.SetKeepAlive();
         this.SendServerIsReadyMessage();
-        String request;
-        Manager manager = new Manager();
-        try {
-            replySocket.setKeepAlive(true);
-        } catch (SocketException ex) {
+        this.manager = new Manager();
+       
+        while (KeepCommunicationAlive()) 
+        {
+            String clientRequest = this.WaitClientRequest();
+            
+            StateAnswer server_response = manager.HandleCommand(clientRequest, currentState);
+            
+            this.ChangeState(server_response.getNextState());
+
+            this.SendMessage(server_response.getAnswer());
+            
+            System.out.println("[DEBUG] Current state: "+currentState.getStateName());
+        }
+        
+        this.WaitASecond();
+        
+        this.CloseCommunication();
+    }
+    
+    public String WaitClientRequest()
+    {
+        String request = "";
+        try
+        {
+            InputStream is = replySocket.getInputStream(); // Récupère la requete du client
+            InputStreamReader r = new InputStreamReader(is);  // Création d'un buffer à partir du la requête
+            BufferedReader br = new BufferedReader(r); // Création d'un buffer à partir du la requête
+            request = br.readLine(); // Lit la première ligne de la requête
+        } 
+        catch (IOException ex)
+        {
             Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);
         }
-        while (true) {
-            try {
-                
-                InputStream is = replySocket.getInputStream(); // Récupère la requete du client
-                InputStreamReader r = new InputStreamReader(is);  // Création d'un buffer à partir du la requête
-                BufferedReader br = new BufferedReader(r); // Création d'un buffer à partir du la requête
-                request = br.readLine(); // Lit la première ligne de la requête
-                System.out.println(request);
-                
-                StateAnswer server_response = manager.HandleCommand(request, currentState);
-                if(server_response.getNextState() != null)
-                    this.currentState = server_response.getNextState();
-                
-                System.out.println("[DEBUG] Current state: "+currentState.getStateName());
-                
-                /*switch(evt)
-                {
-                    case APOPEvent:
-                        state.LauchAPOP();
-                        break;
-                    case "STAT":
-                        state.LauchSTAT();
-                        break;
-                    case "RETR":
-                        state.LauchRETR();
-                        break;
-                    case "QUIT":
-                        state.LauchQUIT();
-                        break;
-                    case "LIST":
-                        state.LauchLIST();
-                        break;
-                }*/
-                
-                this.SendMessage(server_response.getAnswer());
-                
-            } catch (IOException ex) {
-                Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        
+        return request;
+    }
+    
+    private void ChangeState(states.State nextState)
+    {
+        if(nextState != null)
+        {
+            this.currentState = nextState;
         }
+    }
+    
+    public boolean KeepCommunicationAlive()
+    {
+        return !(currentState instanceof Update || currentState instanceof Closed);
     }
     
     public void SendServerIsReadyMessage()
@@ -104,7 +103,43 @@ public class ThreadCommunication extends Thread{
             byte[] message = new byte[messageString.getBytes().length];
             System.arraycopy(messageString.getBytes(), 0, message, 0, messageString.getBytes().length);
             replySocket.getOutputStream().write(message);
-        } catch (IOException ex)
+        } 
+        catch (IOException ex)
+        {
+            Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void SetKeepAlive()
+    {
+        try 
+        {
+            replySocket.setKeepAlive(true);
+        } 
+        catch (SocketException ex) 
+        {
+            Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void WaitASecond()
+    {
+        try
+        {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex)
+        {
+            Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void CloseCommunication()
+    {
+        try
+        {
+            this.replySocket.close();
+        } 
+        catch (IOException ex)
         {
             Logger.getLogger(ThreadCommunication.class.getName()).log(Level.SEVERE, null, ex);
         }
