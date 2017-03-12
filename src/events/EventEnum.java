@@ -15,5 +15,6 @@ public enum EventEnum
     USER, 
     PASS,
     NOOP,
-    RSET
+    RSET,
+    TOP
 }

@@ -14,6 +14,7 @@ import events.QUITEvent;
 import events.RETREvent;
 import events.RSETEvent;
 import events.STATEvent;
+import events.TOPEvent;
 import events.USEREvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
@@ -153,5 +154,10 @@ public class Autorisation extends State
     public StateAnswer LaunchRSET(RSETEvent rset)
     {
         return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(rset.getEventName(), this.getStateName()));
+    }
+
+    @Override
+    public StateAnswer LaunchTOP(TOPEvent top) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
