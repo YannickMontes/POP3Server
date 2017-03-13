@@ -70,6 +70,27 @@ public class Mail {
         return body;
     }
     
+    public String getBody(Integer lines) {
+        String body = this.body;
+        
+        String[] bodyLines = body.split("\r\n");
+        
+        if(lines >= bodyLines.length) {
+            return this.body;
+        } else {
+            String returnString = "";
+            
+            for(int i=0; i<=lines -1; i++){
+                if(i != 0){
+                    returnString += "\r\n";
+                }
+                returnString += bodyLines[i];
+            }
+            
+            return returnString;
+        }
+    }
+    
     public void deleteMessage() {
         this.tag = MailTagEnum.DELETED;
     }
@@ -88,5 +109,16 @@ public class Mail {
         return toString;
     }
     
+    public String toStringTop(Integer lineNum)
+    {
+        String toString="";
     
+        toString+= "From: "+this.expeditorName+" <"+this.expeditor+">\r\n";
+        toString+= "To: "+this.receptorName+" <"+this.receptor+">\r\n";
+        toString+= "Date: "+this.date+"\r\n";
+        toString+= "Subject: "+this.subject+"\r\n\r\n";
+        toString+= this.getBody(lineNum) +"\r\n";
+        
+        return toString;
+    }
 }

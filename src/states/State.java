@@ -15,6 +15,7 @@ import events.QUITEvent;
 import events.RETREvent;
 import events.RSETEvent;
 import events.STATEvent;
+import events.TOPEvent;
 import events.USEREvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,4 +50,5 @@ public abstract class State
     public abstract StateAnswer LauchRETR(RETREvent retr);
     public abstract StateAnswer LaunchNOOP(NOOPEvent noop);
     public abstract StateAnswer LaunchRSET(RSETEvent rset);
+    public abstract StateAnswer LaunchTOP(TOPEvent top);
 }

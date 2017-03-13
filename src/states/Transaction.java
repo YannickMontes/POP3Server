@@ -14,6 +14,7 @@ import events.QUITEvent;
 import events.RETREvent;
 import events.RSETEvent;
 import events.STATEvent;
+import events.TOPEvent;
 import events.USEREvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
@@ -181,5 +182,25 @@ public class Transaction extends State
         }
         
         return new StateAnswer(null, message);
+    }
+
+    @Override
+    public StateAnswer LaunchTOP(TOPEvent top) {
+    String message;
+        
+        ArrayList<Mail> mails = ParserJSON.getMails(ThreadCommunication.currentUser.get());
+        
+        try
+        {
+            message = "+OK \r\n";
+            message += mails.get(top.getMessageID()-1).toStringTop(top.getLineNumber());
+            message += ".\r\n";
+        }
+        catch(Exception e)
+        {
+            message = "-ERR numero de message invalide\r\n";
+        }
+        
+        return new StateAnswer(null, message);    
     }
 }
