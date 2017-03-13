@@ -18,6 +18,7 @@ import events.TOPEvent;
 import events.USEREvent;
 import java.util.ArrayList;
 import json_parser.ParserJSON;
+import model.User;
 import server.ThreadCommunication;
 import utils.Utils;
 
@@ -41,16 +42,22 @@ public class Autorisation extends State
         System.out.println("Vérifications des informations");
         System.out.println("User: "+apop.getUser() + " Pass: "+ apop.getPass());
         
-        ArrayList<String> users = ParserJSON.getUsers();
+        ArrayList<User> users = ParserJSON.getUsers();
         
         if(Utils.UserInList(users, apop.getUser()))
-        {
-            System.out.println("User found.");
+        {            
+            if(Utils.PassAreEqualsForUserInList(users, apop.getUser(), apop.getPass()))
+            {
+                ThreadCommunication.currentUser.set(apop.getUser());
             
-            ThreadCommunication.currentUser.set(apop.getUser());
-            
-            message = "+OK Welcome "+apop.getUser()+"\r\n";
-            nextState = new Transaction();
+                message = "+OK Welcome "+apop.getUser()+"\r\n";
+                nextState = new Transaction();
+            }
+            else
+            {
+                message = "-ERR Incorrect password\r\n";
+                nextState = null;
+            }    
         }
         else
         {
@@ -66,7 +73,7 @@ public class Autorisation extends State
     {
         String message;
         
-        ArrayList<String> users = ParserJSON.getUsers();
+        ArrayList<User> users = ParserJSON.getUsers();
         
         if(Utils.UserInList(users, user.getUserName()))
         {

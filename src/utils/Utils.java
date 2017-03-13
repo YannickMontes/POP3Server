@@ -7,6 +7,7 @@ package utils;
 
 import java.util.ArrayList;
 import model.Mail;
+import model.User;
 
 /**
  *
@@ -14,9 +15,16 @@ import model.Mail;
  */
 public abstract class Utils
 {
-    public static boolean UserInList(ArrayList<String> list, String user)
+    public static boolean UserInList(ArrayList<User> list, String user)
     {
-        return list.contains(user);  
+        for(User u : list) 
+        {
+            if(u.getName().equals(user))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static String GenerateHelpMessage()
@@ -52,5 +60,17 @@ public abstract class Utils
     public static boolean PassAreEquals(String pass, String password)
     {
         return pass.equals(password);
+    }
+    
+    public static boolean PassAreEqualsForUserInList(ArrayList<User> users, String username, String pass)
+    {
+        for(User u : users)
+        {
+            if(u.getName().equals(username) && u.getPass().equals(pass))
+            {
+                return true;
+            }
+        }   
+        return false;
     }
 }

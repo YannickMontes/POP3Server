@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Mail;
+import model.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,9 +26,9 @@ import utils.MailTagEnum;
  */
 public abstract class ParserJSON 
 {
-    public static ArrayList<String> getUsers()
+    public static ArrayList<User> getUsers()
     {
-        ArrayList toRet = new ArrayList<String>();
+        ArrayList<User> toRet = new ArrayList();
         try
         {
             JSONParser parser = new JSONParser();
@@ -39,7 +40,7 @@ public abstract class ParserJSON
             while(iterator.hasNext())
             {
                 JSONObject user = iterator.next();
-                toRet.add(user.get("user"));
+                toRet.add(new User(user.get("user").toString(), user.get("pass").toString()));
             }
             
             return toRet;
