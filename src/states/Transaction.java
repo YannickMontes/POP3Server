@@ -186,6 +186,21 @@ public class Transaction extends State
 
     @Override
     public StateAnswer LaunchTOP(TOPEvent top) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    String message;
+        
+        ArrayList<Mail> mails = ParserJSON.getMails(ThreadCommunication.currentUser.get());
+        
+        try
+        {
+            message = "+OK \r\n";
+            message += mails.get(top.getMessageID()-1).toStringTop(top.getLineNumber());
+            message += ".\r\n";
+        }
+        catch(Exception e)
+        {
+            message = "-ERR numero de message invalide\r\n";
+        }
+        
+        return new StateAnswer(null, message);    
     }
 }

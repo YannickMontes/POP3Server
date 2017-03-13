@@ -90,6 +90,6 @@ public class Update extends State
 
     @Override
     public StateAnswer LaunchTOP(TOPEvent top) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new StateAnswer(null, Utils.CreateStringCommandNotHandleInThisState(top.getEventName(), this.getStateName()));
     }
 }

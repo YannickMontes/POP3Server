@@ -16,6 +16,7 @@ import events.QUITEvent;
 import events.RETREvent;
 import events.RSETEvent;
 import events.STATEvent;
+import events.TOPEvent;
 import events.USEREvent;
 import states.StateAnswer;
 import utils.Utils;
@@ -140,6 +141,23 @@ public class Manager
                 else
                 {
                     response = currentState.LauchRETR(new RETREvent(Integer.parseInt(message_split[1])));
+                }
+                break;
+                
+            case TOP:
+                System.out.println("[DEBUG]TOP recu");
+                
+                if(message_split.length != 3)
+                {
+                    returnedMessage = "-ERR TOP command take three argument\r\n";
+                }
+                else if(Integer.parseInt(message_split[2]) < 0)
+                {
+                    returnedMessage = "-ERR TOP line number can't be negative\r\n";
+                }
+                else
+                {
+                    response = currentState.LaunchTOP(new TOPEvent(Integer.parseInt(message_split[1]), Integer.parseInt(message_split[2])));
                 }
                 break;
                 

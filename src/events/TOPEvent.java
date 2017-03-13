@@ -12,15 +12,22 @@ package events;
 public class TOPEvent extends Event
 {
     private Integer msgID;
+    private Integer lineNumber;
     
-    public TOPEvent(Integer msgID)
+    public TOPEvent(Integer msgID, Integer lNum)
     {
         super(EventEnum.TOP);
         this.msgID = msgID;
+        this.lineNumber = lNum;
     }
     
-    public Integer getMsgID()
+    public Integer getMessageID()
     {
         return this.msgID;
+    }
+    
+    public Integer getLineNumber()
+    {
+        return this.lineNumber;
     }
 }
