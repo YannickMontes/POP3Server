@@ -103,7 +103,7 @@ public class Mail {
         toString+= "From: "+this.expeditorName+" <"+this.expeditor+">\r\n";
         toString+= "To: "+this.receptorName+" <"+this.receptor+">\r\n";
         toString+= "Date: "+this.date+"\r\n";
-        toString+= "Subject: "+this.subject+"\r\n";
+        toString+= "Subject: "+this.subject+"\r\n\r\n";
         toString+= this.body+"\r\n";
         
         return toString;
