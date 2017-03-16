@@ -22,6 +22,15 @@ public class ThreadCommunication extends Thread{
     private Socket replySocket = null;
     private states.State currentState;
     private Manager manager;
+    public static ThreadLocal<Long> currentTimestamp = new ThreadLocal<Long>()
+    {
+        @Override
+        protected Long initialValue()
+        {
+            return Integer.toUnsignedLong(0);
+        }
+    };
+    
     public static ThreadLocal<String> currentUser = new ThreadLocal<String>(){
         @Override
         protected String initialValue()
@@ -97,7 +106,8 @@ public class ThreadCommunication extends Thread{
     
     public void SendServerIsReadyMessage()
     {
-        this.SendMessage(String.format("+OK POP3 Server is ready <%s>\r\n", Utils.GetCurrentTimeStamp()));
+        ThreadCommunication.currentTimestamp.set(Utils.GetCurrentTimeStamp());
+        this.SendMessage(String.format("+OK POP3 Server is ready <%s>\r\n", Long.toString(ThreadCommunication.currentTimestamp.get())));
     }
     
     public void SendMessage(String messageString)

@@ -75,10 +75,10 @@ public abstract class Utils
         return false;
     }
     
-    public static String GetCurrentTimeStamp()
+    public static long GetCurrentTimeStamp()
     {
         Date d = new Date();
         
-        return Long.toString(d.getTime());
+        return d.getTime();
     }
 }
