@@ -6,6 +6,7 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import model.Mail;
 import model.User;
 
@@ -72,5 +73,12 @@ public abstract class Utils
             }
         }   
         return false;
+    }
+    
+    public static String GetCurrentTimeStamp()
+    {
+        Date d = new Date();
+        
+        return Long.toString(d.getTime());
     }
 }
