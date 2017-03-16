@@ -46,7 +46,8 @@ public class Autorisation extends State
         
         if(Utils.UserInList(users, apop.getUser()))
         {            
-            if(Utils.PassAreEqualsForUserInList(users, apop.getUser(), apop.getPass()))
+            String password = ParserJSON.getPassForUser(apop.getUser());
+            if(Utils.PassEncodedAreEquals(apop.getPass(), password, ThreadCommunication.currentTimestamp.get()))
             {
                 ThreadCommunication.currentUser.set(apop.getUser());
             
