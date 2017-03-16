@@ -12,6 +12,7 @@ import states.Autorisation;
 import states.Closed;
 import states.StateAnswer;
 import states.Update;
+import utils.Utils;
 
 /**
  *
@@ -41,10 +42,13 @@ public class ThreadCommunication extends Thread{
         this.SetKeepAlive();
         this.SendServerIsReadyMessage();
         this.manager = new Manager();
-       
+               
         while (KeepCommunicationAlive()) 
         {
             String clientRequest = this.WaitClientRequest();
+            
+            if(clientRequest == null)
+                break;
             
             StateAnswer server_response = manager.HandleCommand(clientRequest, currentState);
             
@@ -93,7 +97,7 @@ public class ThreadCommunication extends Thread{
     
     public void SendServerIsReadyMessage()
     {
-        this.SendMessage("+OK POP3 Server is ready\r\n");
+        this.SendMessage(String.format("+OK POP3 Server is ready <%s>\r\n", Utils.GetCurrentTimeStamp()));
     }
     
     public void SendMessage(String messageString)
