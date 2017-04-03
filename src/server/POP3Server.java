@@ -1,6 +1,7 @@
 package server;
 
 import java.io.IOException;
+import static java.lang.System.exit;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class POP3Server {
         } catch (IOException ex) {
             Logger.getLogger(POP3Server.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Création du socket sur le port 1024 impossible car le port est occupé");
+            exit(0);
         }
 
     }

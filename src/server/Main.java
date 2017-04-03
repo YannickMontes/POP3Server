@@ -16,6 +16,9 @@ public class Main {
         ParserJSON.initJSONFiles();
         POP3Server pop3server = new POP3Server();
         pop3server.initializeServer();
+        
+        ServerGUI frame = new ServerGUI();
+        frame.setVisible(true);
     }
     
 }
