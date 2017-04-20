@@ -3,11 +3,11 @@
 		{
 			"from": {
                 "name": "Jean-Michel",
-                "adress": "jeanmichel"
+                "adress": "jean.michel@polytech.com"
             },
 			"to": {
                 "name": "Yannick",
-                "adress": "Yannick"
+                "adress": "yannick.montes@polytech.com"
             },
             "subject": "Demande de conversation",
             "date": "Fri, 21 Feb 2017 09:55:06 -600",
@@ -18,11 +18,11 @@
         {
 			"from": {
                 "name": "Jean-Michel",
-                "adress": "jeanmichel"
+                "adress": "jean.michel@polytech.com"
             },
 			"to": {
                 "name": "Yoann",
-                "adress": "Yoann"
+                "adress": "yoann.lathuiliere@polytech.com"
             },
             "subject": "Notice POP3 (3 lignes)",
             "date": "Fri, 21 Feb 2017 09:55:06 -600",
@@ -33,11 +33,11 @@
         {
 			"from": {
                 "name": "Jean-Michel",
-                "adress": "jeanmichel"
+                "adress": "jean.michel@polytech.com"
             },
 			"to": {
                 "name": "Yoann",
-                "adress": "Yoann"
+                "adress": "yoann.lathuiliere@polytech.com"
             },
             "subject": "Lorem Ipsmum",
             "date": "Fri, 25 Feb 2017 09:55:06 -600",
@@ -48,11 +48,11 @@
         {
 			"from": {
                 "name": "Jean-Michel",
-                "adress": "jeanmichel"
+                "adress": "jean.michel@polytech.com"
             },
 			"to": {
                 "name": "Yoann",
-                "adress": "Yoann"
+                "adress": "yoann.lathuiliere@polytech.com"
             },
             "subject": "English text",
             "date": "Fri, 17 Feb 2017 09:55:06 -600",
@@ -63,11 +63,11 @@
         {
 			"from": {
                 "name": "Jean-Michel",
-                "adress": "jeanmichel"
+                "adress": "jean.michel@polytech.com"
             },
 			"to": {
                 "name": "Yoann",
-                "adress": "Yoann"
+                "adress": "yoann.lathuiliere@polytech.com"
             },
             "subject": "Arab text",
             "date": "Fri, 23 Feb 2017 09:55:06 -600",
@@ -77,3 +77,4 @@
 		}
     ]
 }
+

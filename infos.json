@@ -1,12 +1,20 @@
 {
 	"users": [
 		{
-			"user":"Yannick",
+			"user":"yannick.montes@polytech.com",
 			"pass":"test"
 		},
 		{
-			"user":"Yoann",
-			"pass":"stress"
+			"user":"yoann.lathuiliere@polytech.com",
+			"pass":"polytech"
+		},
+		{
+			"user":"jean.michel@polytech.com",
+			"pass":"jeanmich"
+		},
+		{
+			"user":"rene.sens@polytech.com",
+			"pass":"password"
 		}
 	]
 }
