@@ -86,8 +86,8 @@ public abstract class ParserJSON
                 JSONObject recJSON = (JSONObject) mailJSON.get("to");
                 
                 String exp  = (String) expJSON.get("adress");
-                String expName = (String) expJSON.get("name");
-                String recName = (String) recJSON.get("name");
+                String expName = (String) expJSON.get("adress");
+                String recName = (String) recJSON.get("adress");
                 String rec = (String) recJSON.get("adress");
                 String sub = (String) mailJSON.get("subject");
                 String dat = (String) mailJSON.get("date");
@@ -132,7 +132,7 @@ public abstract class ParserJSON
                 
                 JSONObject recJSON = (JSONObject) mailJSON.get("to");
                 
-                if(recJSON.get("name").equals(user))
+                if(recJSON.get("adress").equals(user))
                 {
                     cptMailUser++;
                     if(cptMailUser == mailNumber)
@@ -214,7 +214,7 @@ public abstract class ParserJSON
                 
                 JSONObject recJSON = (JSONObject) mailJSON.get("to");
                 
-                if(recJSON.get("name").equals(username) && mailJSON.get("balise").equals(MailTagEnum.DELETED.toString()))
+                if(recJSON.get("adress").equals(username) && mailJSON.get("balise").equals(MailTagEnum.DELETED.toString()))
                 {
                     mailsToRemove.add(mailJSON);
                 }
@@ -262,7 +262,7 @@ public abstract class ParserJSON
                 
                 JSONObject recJSON = (JSONObject) mailJSON.get("to");
                 
-                if(recJSON.get("name").equals(user))
+                if(recJSON.get("adress").equals(user))
                 {
                     if(mailJSON.get("balise").equals(MailTagEnum.DELETED.toString()))
                     {
