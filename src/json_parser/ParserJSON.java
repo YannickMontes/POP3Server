@@ -11,11 +11,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jdk.nashorn.internal.runtime.options.Options;
 import model.Mail;
 import model.User;
 import org.json.simple.JSONArray;
@@ -35,8 +40,17 @@ public abstract class ParserJSON
     
     public static void initJSONFiles()
     {        
-        ParserJSON.infosFile = System.getProperty("user.dir")+"/infos.json";
-        ParserJSON.mailsFile = System.getProperty("user.dir")+"/mails.json";
+        String home = System.getProperty("user.home");
+        if(Files.exists(Paths.get(home + "/Bureau"), LinkOption.NOFOLLOW_LINKS))
+        {
+            ParserJSON.infosFile = System.getProperty("user.home")+"/Bureau/infos.json";
+            ParserJSON.mailsFile = System.getProperty("user.home")+"/Bureau/mails.json";
+        }
+        else
+        {
+            ParserJSON.infosFile = System.getProperty("user.home")+"/Desktop/infos.json";
+            ParserJSON.mailsFile = System.getProperty("user.home")+"/Desktop/mails.json";
+        }
     }
     
     public static ArrayList<User> getUsers()
