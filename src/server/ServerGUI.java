@@ -16,6 +16,7 @@ public class ServerGUI extends javax.swing.JFrame {
      */
     public ServerGUI() {
         initComponents();
+        this.setTitle("POP3 Server");
     }
 
     /**
